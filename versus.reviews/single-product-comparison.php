@@ -180,10 +180,8 @@ $post_id = get_the_ID();
                         $icon_class = ($icon === 'active') ? 'icon-ok' : 'icon-cancel';
                         if ($title):
                     ?>
-                        <div class="sidebar-two-subtitles">
-                            <i class="<?php echo esc_attr($icon_class); ?>"></i>
-                            <p><a href="<?php echo esc_attr($link_data['link']); ?>"><?php echo esc_html($title); ?></a></p>
-                        </div>
+                        <i class="<?php echo esc_attr($icon_class); ?>"></i>
+                        <p><a href="<?php echo esc_attr($link_data['link']); ?>"><?php echo esc_html($title); ?></a></p>
                     <?php
                         endif;
                     endforeach;

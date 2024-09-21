@@ -327,6 +327,7 @@ sup {
 .product-image-box, 
 .circle-summary, 
 .grade {
+    display: inline-block;
     width: 33%;
     border: 1px solid #F0F0F0;
     padding: 25px;
@@ -405,21 +406,16 @@ ol, ul {
     position: relative;
 }
 
-.lp .left .pros-cons li::before {
-	font-family: "scale";
-	display: inline-block;
-	text-align: center;
-	content: "\E899";
-	color: #59b377;
-	position: absolute;
-	left: 0;
-	top: 0;
-	font-size: 25px;
-	transform: translateY(-6px);
-	-webkit-transform: translateY(-6px);
-	-moz-transform: translateY(-6px);
-	-ms-transform: translateY(-6px);
-	-o-transform: translateY(-6px);
+.lp .left .pros-cons li:before {
+    font-family: "scale";
+    display: inline-block;
+    text-align: center;
+    content: "\E899";
+    color: #59b377;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 25px;
 }
 
 .lp .left .pros-cons ul:nth-of-type(2) li:before {
@@ -724,6 +720,7 @@ h2 {
 
 .lp .what-you-learn .reading-time p:last-child {
     width: 114px;
+    display: inline-block;
     margin: 0px;
     float: right;
 }
@@ -867,26 +864,9 @@ a {
     margin: 0 auto;
     max-width: 100%;
 }
-[width="118"] {
-	width: 118px !important;
-	height: auto !important;
-}
 
 .lp .main-sources p:last-of-type {
     margin: 0px 20px 26px;
-}
-
-/* pkstyles */
-.sidebar-two-subtitles {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-bottom: 22px;
-}
-.lp .what-you-learn .sidebar-two-subtitles i,
-.lp .what-you-learn .sidebar-two-subtitles p  {
-    margin-bottom: 0;
-    line-height: 1em;
 }
 
 /* Responsive Design */
@@ -1274,6 +1254,4 @@ a {
         font-size: 12pt;
     }
 }
-
-
 
