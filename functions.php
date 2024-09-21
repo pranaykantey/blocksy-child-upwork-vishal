@@ -232,12 +232,18 @@ function product_meta_box_callback($post)
                 if (template === 'page-product-review.php') {
                     $('#product-review-fields').show();
                     $('#product-comparison-fields').hide();
+                    $('#product_meta_box_sidebar').hide();
+                    $('#product_meta_box').show();
                 } else if (template === 'single-product-comparison.php') {
                     $('#product-review-fields').hide();
                     $('#product-comparison-fields').show();
+                    $('#product_meta_box_sidebar').show();
+                    $('#product_meta_box').show();
                 } else {
                     $('#product-review-fields').hide();
                     $('#product-comparison-fields').hide();
+                    $('#product_meta_box_sidebar').hide();
+                    $('#product_meta_box').hide();
                 }
             }
 
@@ -280,7 +286,7 @@ function product_meta_box_sidebar_callback($post)
     echo '</div>';
 
 ?>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         jQuery(document).ready(function($) {
             function toggleFields() {
                 var template = $('#page_template').val();
@@ -292,14 +298,13 @@ function product_meta_box_sidebar_callback($post)
                     $('#product_meta_box_sidebar').show();
                 } else {
                     $('#product_meta_box_sidebar').hide();
-                    // $('#product-comparison-fields').hide();
                 }
             }
 
             $('#page_template').on('change', toggleFields);
             toggleFields(); // Run on page load
         });
-    </script>
+    </script> -->
 <?php
     log_message("Product meta box sidebar callback completed for post ID: " . $post->ID);
 }
