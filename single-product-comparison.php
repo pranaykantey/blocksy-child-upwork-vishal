@@ -5,8 +5,8 @@ Template Name: Product Comparison
 
 get_header();
 
-wp_enqueue_style( 'google-fonts-roboto', 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap', false );
-wp_enqueue_style( 'google-fonts-open-sans', 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap', false );
+wp_enqueue_style('google-fonts-roboto', 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap', false);
+wp_enqueue_style('google-fonts-open-sans', 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap', false);
 wp_enqueue_style('product-comparison-style', get_stylesheet_directory_uri() . '/product-comparison.css', array(), '1.1');
 wp_enqueue_script('product-comparison-script', get_stylesheet_directory_uri() . '/product-comparison.js', array('jquery'), '1.1', true);
 
@@ -33,12 +33,12 @@ $post_id = get_the_ID();
                     <?php the_post_thumbnail('full', array('class' => 'featured-image')); ?>
                 </p>
             <?php endif; ?>
-            
+
             <?php the_content(); ?>
 
-            <?php 
+            <?php
             $effect_image = get_post_meta($post_id, 'effect_image', true);
-            if ($effect_image): 
+            if ($effect_image):
             ?>
                 <h3>
                     <img src="<?php echo esc_url($effect_image); ?>" alt="The Effect">
@@ -47,7 +47,30 @@ $post_id = get_the_ID();
 
             <div id="benefits" class="colored-table green">
                 <h3><?php echo esc_html(get_post_meta($post_id, 'benefits_title', true)); ?></h3>
-                <?php echo wp_kses_post(wpautop(get_post_meta($post_id, 'benefits_content', true))); ?>
+                <?php // echo wp_kses_post(wpautop(get_post_meta($post_id, 'benefits_content', true))); ?>
+                <div class="table-body">
+                    <?php
+                    // first made.
+                    $benefits_content = get_post_meta($post_id, 'benefits_content', true);
+
+                    
+                    $benefits_content = str_replace('h1', 'h4', $benefits_content);
+                    $benefits_content = str_replace('h2', 'h4', $benefits_content);
+                    $benefits_content = str_replace('h3', 'h4', $benefits_content);
+                    $benefits_content = str_replace('h5', 'h4', $benefits_content);
+                    $benefits_content = str_replace('h6', 'h4', $benefits_content);
+
+                    $tertiary_color = !empty(get_post_meta($post_id,'tertiary_color', true))?get_post_meta($post_id,'tertiary_color', true):'';
+                    $replace_text = '<h4><i class="icon green icon-ok-circled2"></i><span style="background-color: ' . $tertiary_color . '">';
+
+                    if( !strpos('icon-ok-circled2', $benefits_content) ) {
+                        $benefits_content = str_replace('<h4>', $replace_text, $benefits_content);
+                        $benefits_content = str_replace('</h4>', '</span></h4>', $benefits_content);
+                    }
+                    
+                    echo wp_kses_post(wpautop($benefits_content));
+                    ?>
+                </div>
             </div>
 
             <div id="usage">
@@ -57,17 +80,83 @@ $post_id = get_the_ID();
 
             <div id="key-ingredients" class="colored-table green">
                 <h3><?php echo esc_html(get_post_meta($post_id, 'ingredients_to_look_for_title', true)); ?></h3>
-                <?php echo wp_kses_post(wpautop(get_post_meta($post_id, 'ingredients_to_look_for_content', true))); ?>
+                <div class="table-body">
+                    <?php
+                    // first made.
+                    $ingredients_to_look_for_content = get_post_meta($post_id, 'ingredients_to_look_for_content', true);
+                    
+                    $ingredients_to_look_for_content = str_replace('h1', 'h4', $ingredients_to_look_for_content);
+                    $ingredients_to_look_for_content = str_replace('h2', 'h4', $ingredients_to_look_for_content);
+                    $ingredients_to_look_for_content = str_replace('h3', 'h4', $ingredients_to_look_for_content);
+                    $ingredients_to_look_for_content = str_replace('h5', 'h4', $ingredients_to_look_for_content);
+                    $ingredients_to_look_for_content = str_replace('h6', 'h4', $ingredients_to_look_for_content);
+
+                    $tertiary_color = !empty(get_post_meta($post_id,'tertiary_color', true))?get_post_meta($post_id,'tertiary_color', true):'';
+                    $replace_text = '<h4><i class="icon green icon-ok-circled2"></i><span style="background-color: ' . $tertiary_color . '">';
+
+                    if( !strpos('icon-ok-circled2', $ingredients_to_look_for_content) ) {
+                        $ingredients_to_look_for_content = str_replace('<h4>', $replace_text, $ingredients_to_look_for_content);
+                        $ingredients_to_look_for_content = str_replace('</h4>', '</span></h4>', $ingredients_to_look_for_content);
+                    }
+                    
+                    echo wp_kses_post(wpautop($ingredients_to_look_for_content));
+                    ?>
+                </div>
             </div>
 
             <div id="ingredients-to-avoid" class="colored-table red">
                 <h3><?php echo esc_html(get_post_meta($post_id, 'ingredients_to_avoid_title', true)); ?></h3>
-                <?php echo wp_kses_post(wpautop(get_post_meta($post_id, 'ingredients_to_avoid_content', true))); ?>
+                <?php // echo wp_kses_post(wpautop(get_post_meta($post_id, 'ingredients_to_avoid_content', true))); ?>
+                <div class="table-body">
+                    <?php
+                    // first made.
+                    $ingredients_to_avoid_content = get_post_meta($post_id, 'ingredients_to_avoid_content', true);
+                    
+                    $ingredients_to_avoid_content = str_replace('h1', 'h4', $ingredients_to_avoid_content);
+                    $ingredients_to_avoid_content = str_replace('h2', 'h4', $ingredients_to_avoid_content);
+                    $ingredients_to_avoid_content = str_replace('h3', 'h4', $ingredients_to_avoid_content);
+                    $ingredients_to_avoid_content = str_replace('h5', 'h4', $ingredients_to_avoid_content);
+                    $ingredients_to_avoid_content = str_replace('h6', 'h4', $ingredients_to_avoid_content);
+
+                    // $tertiary_color = !empty(get_post_meta($post_id,'tertiary_color', true))?get_post_meta($post_id,'tertiary_color', true):'';
+                    $replace_text = '<h4><i class="icon red icon-cancel-circled2"></i><span>';
+
+                    if( !strpos('icon-cancel-circled2', $ingredients_to_avoid_content) ) {
+                        $ingredients_to_avoid_content = str_replace('<h4>', $replace_text, $ingredients_to_avoid_content);
+                        $ingredients_to_avoid_content = str_replace('</h4>', '</span></h4>', $ingredients_to_avoid_content);
+                    }
+                    
+                    echo wp_kses_post(wpautop($ingredients_to_avoid_content));
+                    ?>
+                </div>
             </div>
 
             <div id="considerations" class="colored-table blue">
                 <h3><?php echo esc_html(get_post_meta($post_id, 'considerations_title', true)); ?></h3>
-                <?php echo wp_kses_post(wpautop(get_post_meta($post_id, 'considerations_content', true))); ?>
+                <?php // echo wp_kses_post(wpautop(get_post_meta($post_id, 'considerations_content', true))); ?>
+                
+                <div class="table-body">
+                    <?php
+                    // first made.
+                    $considerations_content = get_post_meta($post_id, 'considerations_content', true);
+
+                    $considerations_content = str_replace('h1', 'h4', $considerations_content);
+                    $considerations_content = str_replace('h2', 'h4', $considerations_content);
+                    $considerations_content = str_replace('h3', 'h4', $considerations_content);
+                    $considerations_content = str_replace('h5', 'h4', $considerations_content);
+                    $considerations_content = str_replace('h6', 'h4', $considerations_content);
+
+                    // $tertiary_color = !empty(get_post_meta($post_id,'tertiary_color', true))?get_post_meta($post_id,'tertiary_color', true):'';
+                    $replace_text = '<h4><i class="icon icon-ok-1" data-uw-styling-context="true"></i><span>';
+
+                    if( !strpos('icon-ok-1', $considerations_content) ) {
+                        $considerations_content = str_replace('<h4>', $replace_text, $considerations_content);
+                        $considerations_content = str_replace('</h4>', '</span></h4>', $considerations_content);
+                    }
+                    
+                    echo wp_kses_post(wpautop($considerations_content));
+                    ?>
+                </div>
             </div>
 
             <h3 style="text-align: center;"><?php echo esc_html(get_post_meta($post_id, 'top_products_title', true)); ?></h3>
@@ -86,42 +175,42 @@ $post_id = get_the_ID();
                 $product_cons = get_post_meta($post_id, "product_{$i}_cons", true);
                 $product_bottom_line = get_post_meta($post_id, "product_{$i}_bottom_line", true);
             ?>
-            <div class="review test1">
-                <h4>
-                    <a href="<?php echo esc_url($product_link); ?>"><?php echo $i; ?>. <?php echo esc_html($product_name); ?></a>
-                    <?php if ($i === 1): ?>
-                        <sup><a href="#citations">[1]</a></sup>
-                    <?php endif; ?>
-                </h4>
-                <p class="byline">by <a href="<?php echo esc_url($product_link); ?>"><?php echo esc_html($product_brand); ?></a></p>
-                <?php if ($product_rating_image): ?>
-                    <img src="<?php echo esc_url($product_rating_image); ?>" width="118" height="115" alt="rating" class="rating-image">
-                <?php endif; ?>
-                <div class="product-image-box">
-                    <a href="<?php echo esc_url($product_link); ?>">
-                        <?php if ($product_image): ?>
-                            <img src="<?php echo esc_url($product_image); ?>" alt="<?php echo esc_attr($product_name); ?>">
+                <div class="review test1">
+                    <h4>
+                        <a href="<?php echo esc_url($product_link); ?>"><?php echo $i; ?>. <?php echo esc_html($product_name); ?></a>
+                        <?php if ($i === 1): ?>
+                            <sup><a href="#citations">[1]</a></sup>
                         <?php endif; ?>
-                    </a>
-                </div>
-                <div class="grade">
-                    <h1><?php echo esc_html($product_grade); ?></h1>
-                    <p>OVERALL GRADE</p>
-                </div>
-                <div class="left">
-                    <div class="pros-cons">
-                        <h3>PROS</h3>
-                        <?php echo wp_kses_post($product_pros); ?>
-                        <h3>CONS</h3>
-                        <?php echo wp_kses_post($product_cons); ?>
+                    </h4>
+                    <p class="byline">by <a href="<?php echo esc_url($product_link); ?>"><?php echo esc_html($product_brand); ?></a></p>
+                    <?php if ($product_rating_image): ?>
+                        <img src="<?php echo esc_url($product_rating_image); ?>" width="118" height="115" alt="rating" class="rating-image">
+                    <?php endif; ?>
+                    <div class="product-image-box">
+                        <a href="<?php echo esc_url($product_link); ?>">
+                            <?php if ($product_image): ?>
+                                <img src="<?php echo esc_url($product_image); ?>" alt="<?php echo esc_attr($product_name); ?>">
+                            <?php endif; ?>
+                        </a>
+                    </div>
+                    <div class="grade">
+                        <h1><?php echo esc_html($product_grade); ?></h1>
+                        <p>OVERALL GRADE</p>
+                    </div>
+                    <div class="left">
+                        <div class="pros-cons">
+                            <h3>PROS</h3>
+                            <?php echo wp_kses_post($product_pros); ?>
+                            <h3>CONS</h3>
+                            <?php echo wp_kses_post($product_cons); ?>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <h5>Bottom Line</h5>
+                        <?php echo wp_kses_post(wpautop($product_bottom_line)); ?>
+                        <a href="<?php echo esc_url($product_link); ?>">Visit Website</a>
                     </div>
                 </div>
-                <div class="right">
-                    <h5>Bottom Line</h5>
-                    <?php echo wp_kses_post(wpautop($product_bottom_line)); ?>
-                    <a href="<?php echo esc_url($product_link); ?>">Visit Website</a>
-                </div>
-            </div>
             <?php endfor; ?>
         </div>
 
@@ -180,10 +269,10 @@ $post_id = get_the_ID();
                         $icon_class = ($icon === 'active') ? 'icon-ok' : 'icon-cancel';
                         if ($title):
                     ?>
-                        <div class="sidebar-two-subtitles">
-                            <i class="<?php echo esc_attr($icon_class); ?>"></i>
-                            <p><a href="<?php echo esc_attr($link_data['link']); ?>"><?php echo esc_html($title); ?></a></p>
-                        </div>
+                            <div class="sidebar-two-subtitles">
+                                <i class="<?php echo esc_attr($icon_class); ?>"></i>
+                                <p><a href="<?php echo esc_attr($link_data['link']); ?>"><?php echo esc_html($title); ?></a></p>
+                            </div>
                     <?php
                         endif;
                     endforeach;
