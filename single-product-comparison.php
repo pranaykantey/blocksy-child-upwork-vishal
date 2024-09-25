@@ -12,7 +12,6 @@ wp_enqueue_script('product-comparison-script', get_stylesheet_directory_uri() . 
 
 $post_id = get_the_ID();
 ?>
-
 <div class="main">
     <div class="lp">
         <div class="section-1">
@@ -47,27 +46,28 @@ $post_id = get_the_ID();
 
             <div id="benefits" class="colored-table green">
                 <h3><?php echo esc_html(get_post_meta($post_id, 'benefits_title', true)); ?></h3>
-                <?php // echo wp_kses_post(wpautop(get_post_meta($post_id, 'benefits_content', true))); ?>
+                <?php // echo wp_kses_post(wpautop(get_post_meta($post_id, 'benefits_content', true))); 
+                ?>
                 <div class="table-body">
                     <?php
                     // first made.
                     $benefits_content = get_post_meta($post_id, 'benefits_content', true);
 
-                    
+
                     $benefits_content = str_replace('h1', 'h4', $benefits_content);
                     $benefits_content = str_replace('h2', 'h4', $benefits_content);
                     $benefits_content = str_replace('h3', 'h4', $benefits_content);
                     $benefits_content = str_replace('h5', 'h4', $benefits_content);
                     $benefits_content = str_replace('h6', 'h4', $benefits_content);
 
-                    $tertiary_color = !empty(get_post_meta($post_id,'tertiary_color', true))?get_post_meta($post_id,'tertiary_color', true):'';
-                    $replace_text = '<h4><i class="icon green icon-ok-circled2"></i><span style="background-color: ' . $tertiary_color . '">';
+                    $marked_bg_color = !empty(get_post_meta($post_id, 'marked_bg_color', true)) ? get_post_meta($post_id, 'marked_bg_color', true) : '';
+                    $replace_text = '<h4><i class="icon green icon-ok-circled2"></i><span style="background-color: ' . $marked_bg_color . '">';
 
-                    if( !strpos('icon-ok-circled2', $benefits_content) ) {
+                    if (!strpos('icon-ok-circled2', $benefits_content)) {
                         $benefits_content = str_replace('<h4>', $replace_text, $benefits_content);
                         $benefits_content = str_replace('</h4>', '</span></h4>', $benefits_content);
                     }
-                    
+
                     echo wp_kses_post(wpautop($benefits_content));
                     ?>
                 </div>
@@ -84,21 +84,21 @@ $post_id = get_the_ID();
                     <?php
                     // first made.
                     $ingredients_to_look_for_content = get_post_meta($post_id, 'ingredients_to_look_for_content', true);
-                    
+
                     $ingredients_to_look_for_content = str_replace('h1', 'h4', $ingredients_to_look_for_content);
                     $ingredients_to_look_for_content = str_replace('h2', 'h4', $ingredients_to_look_for_content);
                     $ingredients_to_look_for_content = str_replace('h3', 'h4', $ingredients_to_look_for_content);
                     $ingredients_to_look_for_content = str_replace('h5', 'h4', $ingredients_to_look_for_content);
                     $ingredients_to_look_for_content = str_replace('h6', 'h4', $ingredients_to_look_for_content);
 
-                    $tertiary_color = !empty(get_post_meta($post_id,'tertiary_color', true))?get_post_meta($post_id,'tertiary_color', true):'';
-                    $replace_text = '<h4><i class="icon green icon-ok-circled2"></i><span style="background-color: ' . $tertiary_color . '">';
+                    $marked_bg_color = !empty(get_post_meta($post_id, 'marked_bg_color', true)) ? get_post_meta($post_id, 'marked_bg_color', true) : '';
+                    $replace_text = '<h4><i class="icon green icon-ok-circled2"></i><span style="background-color: ' . $marked_bg_color . ';">';
 
-                    if( !strpos('icon-ok-circled2', $ingredients_to_look_for_content) ) {
+                    if (!strpos('icon-ok-circled2', $ingredients_to_look_for_content)) {
                         $ingredients_to_look_for_content = str_replace('<h4>', $replace_text, $ingredients_to_look_for_content);
                         $ingredients_to_look_for_content = str_replace('</h4>', '</span></h4>', $ingredients_to_look_for_content);
                     }
-                    
+
                     echo wp_kses_post(wpautop($ingredients_to_look_for_content));
                     ?>
                 </div>
@@ -106,12 +106,13 @@ $post_id = get_the_ID();
 
             <div id="ingredients-to-avoid" class="colored-table red">
                 <h3><?php echo esc_html(get_post_meta($post_id, 'ingredients_to_avoid_title', true)); ?></h3>
-                <?php // echo wp_kses_post(wpautop(get_post_meta($post_id, 'ingredients_to_avoid_content', true))); ?>
+                <?php // echo wp_kses_post(wpautop(get_post_meta($post_id, 'ingredients_to_avoid_content', true))); 
+                ?>
                 <div class="table-body">
                     <?php
                     // first made.
                     $ingredients_to_avoid_content = get_post_meta($post_id, 'ingredients_to_avoid_content', true);
-                    
+
                     $ingredients_to_avoid_content = str_replace('h1', 'h4', $ingredients_to_avoid_content);
                     $ingredients_to_avoid_content = str_replace('h2', 'h4', $ingredients_to_avoid_content);
                     $ingredients_to_avoid_content = str_replace('h3', 'h4', $ingredients_to_avoid_content);
@@ -121,11 +122,11 @@ $post_id = get_the_ID();
                     // $tertiary_color = !empty(get_post_meta($post_id,'tertiary_color', true))?get_post_meta($post_id,'tertiary_color', true):'';
                     $replace_text = '<h4><i class="icon red icon-cancel-circled2"></i><span>';
 
-                    if( !strpos('icon-cancel-circled2', $ingredients_to_avoid_content) ) {
+                    if (!strpos('icon-cancel-circled2', $ingredients_to_avoid_content)) {
                         $ingredients_to_avoid_content = str_replace('<h4>', $replace_text, $ingredients_to_avoid_content);
                         $ingredients_to_avoid_content = str_replace('</h4>', '</span></h4>', $ingredients_to_avoid_content);
                     }
-                    
+
                     echo wp_kses_post(wpautop($ingredients_to_avoid_content));
                     ?>
                 </div>
@@ -133,8 +134,9 @@ $post_id = get_the_ID();
 
             <div id="considerations" class="colored-table blue">
                 <h3><?php echo esc_html(get_post_meta($post_id, 'considerations_title', true)); ?></h3>
-                <?php // echo wp_kses_post(wpautop(get_post_meta($post_id, 'considerations_content', true))); ?>
-                
+                <?php // echo wp_kses_post(wpautop(get_post_meta($post_id, 'considerations_content', true))); 
+                ?>
+
                 <div class="table-body">
                     <?php
                     // first made.
@@ -149,11 +151,11 @@ $post_id = get_the_ID();
                     // $tertiary_color = !empty(get_post_meta($post_id,'tertiary_color', true))?get_post_meta($post_id,'tertiary_color', true):'';
                     $replace_text = '<h4><i class="icon icon-ok-1" data-uw-styling-context="true"></i><span>';
 
-                    if( !strpos('icon-ok-1', $considerations_content) ) {
+                    if (!strpos('icon-ok-1', $considerations_content)) {
                         $considerations_content = str_replace('<h4>', $replace_text, $considerations_content);
                         $considerations_content = str_replace('</h4>', '</span></h4>', $considerations_content);
                     }
-                    
+
                     echo wp_kses_post(wpautop($considerations_content));
                     ?>
                 </div>
@@ -283,4 +285,49 @@ $post_id = get_the_ID();
     </div>
 </div>
 
+<style>
+    body {
+        --single-product-comparison-primary-color: <?php echo $var = !empty(get_post_meta($post_id, 'primary_color', true)) ? get_post_meta($post_id, 'primary_color', true) : '#4585e6'; ?>;
+    }
+
+    .lp .right-panel h2 {
+        background-image: linear-gradient(to bottom, var(--single-product-comparison-primary-color) 10%, var(--single-product-comparison-primary-color) 92%);
+    }
+    .lp .nav-bar a:nth-child(2),
+    .lp .colored-table.blue h3 {
+        background-color: var(--single-product-comparison-primary-color);
+    }
+    body {
+        --single-product-comparison-secondary-color: <?php echo $var = !empty(get_post_meta($post_id, 'secondary_color', true)) ? get_post_meta($post_id, 'secondary_color', true) : '#59b377'; ?>;
+    }
+
+    .lp .colored-table.green h3 {
+        background-color: var(--single-product-comparison-secondary-color);
+    }
+    /* .lp .left .pros-cons li::before,
+    .lp i.icon-ok::before,
+    .lp .colored-table .icon.green::before {
+        color: var(--single-product-comparison-secondary-color);
+    } */
+    /* #eb5757 */
+    body {
+        --single-product-comparison-tertiary-color: <?php echo $var = !empty(get_post_meta($post_id, 'tertiary_color', true)) ? get_post_meta($post_id, 'tertiary_color', true) : '#eb5757'; ?>;
+    }
+    
+    .lp .colored-table.red h3 {
+        background-color: var(--single-product-comparison-tertiary-color);
+    }
+    /* .lp .colored-table .icon.red,
+    .lp .left .pros-cons ul:nth-of-type(2) li::before {
+        color: var(--single-product-comparison-tertiary-color);
+    } */
+
+    body {
+        /* button_color */
+        --button-bg-color: <?php echo $var = !empty(get_post_meta($post_id, 'button_color', true)) ? get_post_meta($post_id, 'button_color', true) : '#eb5757'; ?>;
+    }
+    .lp .right a:last-of-type {
+        background-color: var(--button-bg-color);
+    }
+</style>
 <?php get_footer(); ?>

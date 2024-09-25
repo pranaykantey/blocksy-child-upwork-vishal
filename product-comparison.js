@@ -38,5 +38,8 @@ jQuery(document).ready(function($) {
     });
 
     // Initialize progress and active section on page load
-    updateProgress();
+    // updateProgress();
+
+    // Initialize color picker.
+    
 });

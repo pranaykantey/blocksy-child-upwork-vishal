@@ -89,7 +89,6 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     text-align: center;
     width: 600px;
-    height: 45px;
     border: solid 1px #457ae6;
     background-color: #fff;
     margin: 20px auto 10px;
@@ -100,7 +99,6 @@ h1, h2, h3, h4, h5, h6 {
     vertical-align: middle;
     display: inline;
     width: 200px;
-    height: 45px;
     padding: 9px 0px;
     text-align: center;
     color: #5787eb;

@@ -415,6 +415,9 @@ function product_comparison_fields($post)
     field_color($post, 'primary_color', 'Primary Color');
     field_color($post, 'secondary_color', 'Secondary Color');
     field_color($post, 'tertiary_color', 'Tertiary Color');
+    field_color($post, 'marked_bg_color', 'Marked Color');
+    field_color($post, 'button_color', 'Button Color');
+    // button_color
 }
 
 function product_comparison_sidebar_fields($post)
@@ -612,6 +615,8 @@ function save_product_meta($post_id)
         'primary_color',
         'secondary_color',
         'tertiary_color',
+        'marked_bg_color',
+        'button_color',
         'sidebar_2_icon_1',
         'sidebar_2_icon_2',
         'sidebar_2_icon_3',
@@ -789,6 +794,8 @@ function enqueue_admin_scripts($hook)
                     }).open();
                 });
             });
+            // code by pk.
+            jQuery('.color-field').wpColorPicker();
         ";
         wp_add_inline_script('product-admin-script', $image_upload_script);
 
@@ -968,5 +975,4 @@ function debug_post_saving($post_id, $post, $update)
     error_log("Post data: " . print_r($post, true));
     error_log("Is update: " . ($update ? 'yes' : 'no'));
 }
-
 log_message("End of functions.php file");
