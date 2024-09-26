@@ -20,12 +20,52 @@ $post_id = get_the_ID();
             <h2><?php echo esc_html(get_post_meta($post_id, 'subtitle', true)); ?></h2>
 
             <div class="nav-bar">
-                <a href="#benefits"><?php echo esc_html(get_post_meta($post_id, 'benefits_nav_text', true)); ?></a>
-                <a href="#key-ingredients"><?php echo esc_html(get_post_meta($post_id, 'ingredients_nav_text', true)); ?></a>
-                <a href="#top-5"><?php echo esc_html(get_post_meta($post_id, 'top_5_nav_text', true)); ?></a>
+                <a href="#benefits"><span><?php echo esc_html(get_post_meta($post_id, 'benefits_nav_text', true)); ?></span></a>
+                <a href="#key-ingredients"><span><?php echo esc_html(get_post_meta($post_id, 'ingredients_nav_text', true)); ?></span></a>
+                <a href="#top-5"><span><?php echo esc_html(get_post_meta($post_id, 'top_5_nav_text', true)); ?></span></a>
             </div>
 
-            <p class="disclosure"><?php echo esc_html(get_post_meta($post_id, 'disclosure', true)); ?></p>
+            <div class="disclosure custom-tooltip">
+                Advertiser Disclosure
+                <div class="tooltip">
+                    <?php echo esc_html(get_post_meta($post_id, 'disclosure', true)); ?>
+                </div>
+            </div>
+            <style>
+                .custom-tooltip {
+                    position: relative;
+                    cursor: pointer;
+                }
+
+                .custom-tooltip .tooltip {
+                    position: absolute;
+                    top: 100%; /* Position above the element */
+                    right: 0;
+                    background-color: rgba(0, 0, 0, 0.8);
+                    color: white;
+                    padding: 5px;
+                    border-radius: 4px;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.3s ease, visibility 0.3s ease;
+                }
+
+                .custom-tooltip:hover .tooltip {
+                    opacity: 1;
+                    visibility: visible;
+                }
+                
+                .custom-tooltip.show .tooltip{
+                    opacity: 1;
+                    visibility: visible;
+                }
+            </style>
+            <script>
+                jQuery('.custom-tooltip').click(function(e){
+                    e.preventDefault();
+                    jQuery(this).toggleClass('show');
+                });
+            </script>
 
             <?php if (has_post_thumbnail()): ?>
                 <p>
@@ -329,5 +369,11 @@ $post_id = get_the_ID();
     .lp .right a:last-of-type {
         background-color: var(--button-bg-color);
     }
+    .nav-bar a {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+    }
 </style>
 <?php get_footer(); ?>
+

@@ -256,6 +256,44 @@ function product_meta_box_callback($post)
     log_message("Product meta box callback completed for post ID: " . $post->ID);
 }
 
+
+function add_product_meta_box_sidebar_color()
+{
+    log_message("Attempting to add product meta box");
+    $post_types = array('post', 'page');
+    foreach ($post_types as $post_type) {
+        add_meta_box(
+            'product_meta_box_sidebar_color',
+            'Colors Selection',
+            'product_meta_box_sidebar_color_callback',
+            $post_type,
+            'side',
+            'low'
+        );
+    }
+    log_message("Product meta box added");
+}
+add_action('add_meta_boxes', 'add_product_meta_box_sidebar_color');
+
+function product_meta_box_sidebar_color_callback($post) {
+    log_message("Product meta box sidebar callback started for post ID: " . $post->ID);
+    $template = get_page_template_slug($post->ID);
+    log_message("Template for post ID " . $post->ID . ": " . $template);
+
+    echo '<div id="product-comparison-fields-sidebar">';
+    log_message("Displaying product comparison sidebar fields");
+    product_comparison_sidebar_color_fields($post);
+    echo '</div>';
+}
+function product_comparison_sidebar_color_fields($post) {
+    echo '<h3>Color Scheme</h3>';
+    field_color($post, 'primary_color', 'Primary Color');
+    field_color($post, 'secondary_color', 'Secondary Color');
+    field_color($post, 'tertiary_color', 'Tertiary Color');
+    field_color($post, 'marked_bg_color', 'Marked Color');
+    field_color($post, 'button_color', 'Button Color');
+}
+
 function add_product_meta_box_sidebar()
 {
     log_message("Attempting to add product meta box");
@@ -266,13 +304,15 @@ function add_product_meta_box_sidebar()
             'Sidebar Details',
             'product_meta_box_sidebar_callback',
             $post_type,
-            'normal',
-            'high'
+            'side',
+            'low'
         );
     }
     log_message("Product meta box added");
 }
 add_action('add_meta_boxes', 'add_product_meta_box_sidebar');
+
+
 function product_meta_box_sidebar_callback($post)
 {
 
@@ -411,12 +451,6 @@ function product_comparison_fields($post)
     }
 
 
-    echo '<h3>Color Scheme</h3>';
-    field_color($post, 'primary_color', 'Primary Color');
-    field_color($post, 'secondary_color', 'Secondary Color');
-    field_color($post, 'tertiary_color', 'Tertiary Color');
-    field_color($post, 'marked_bg_color', 'Marked Color');
-    field_color($post, 'button_color', 'Button Color');
     // button_color
 }
 
