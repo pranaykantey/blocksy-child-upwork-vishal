@@ -27,9 +27,11 @@ $post_id = get_the_ID();
 
             <div class="disclosure custom-tooltip">
                 Advertiser Disclosure
+                <?php if( !empty(get_post_meta($post_id, 'disclosure', true)) ) : ?>
                 <div class="tooltip">
                     <?php echo esc_html(get_post_meta($post_id, 'disclosure', true)); ?>
                 </div>
+                <?php endif; ?>
             </div>
             <style>
                 .custom-tooltip {
@@ -39,15 +41,16 @@ $post_id = get_the_ID();
 
                 .custom-tooltip .tooltip {
                     position: absolute;
-                    top: 100%; /* Position above the element */
+                    top: 100%;
                     right: 0;
-                    background-color: rgba(0, 0, 0, 0.8);
+                    background-color: rgba(74, 74, 74, 0.9);
                     color: white;
-                    padding: 5px;
+                    padding: 20px;
                     border-radius: 4px;
                     opacity: 0;
                     visibility: hidden;
                     transition: opacity 0.3s ease, visibility 0.3s ease;
+                    text-align: left;
                 }
 
                 .custom-tooltip:hover .tooltip {
