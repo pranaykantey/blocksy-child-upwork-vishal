@@ -216,12 +216,17 @@ function product_meta_box_callback($post)
 
     echo '<div id="product-review-fields" ' . ($template !== 'page-product-review.php' ? 'style="display:none;"' : '') . '>';
     log_message("Displaying product review fields");
-    product_review_fields($post);
+    if($template === 'page-product-review.php') {
+        product_review_fields($post);
+    }
     echo '</div>';
 
     echo '<div id="product-comparison-fields" ' . ($template !== 'single-product-comparison.php' ? 'style="display:none;"' : '') . '>';
     log_message("Displaying product comparison fields");
-    product_comparison_fields($post);
+    if($template === 'single-product-comparison.php') {
+        product_comparison_fields($post);
+    }
+    
     echo '</div>';
 
     ?>
@@ -275,7 +280,8 @@ function add_product_meta_box_sidebar_color()
 }
 add_action('add_meta_boxes', 'add_product_meta_box_sidebar_color');
 
-function product_meta_box_sidebar_color_callback($post) {
+function product_meta_box_sidebar_color_callback($post)
+{
     log_message("Product meta box sidebar callback started for post ID: " . $post->ID);
     $template = get_page_template_slug($post->ID);
     log_message("Template for post ID " . $post->ID . ": " . $template);
@@ -285,7 +291,8 @@ function product_meta_box_sidebar_color_callback($post) {
     product_comparison_sidebar_color_fields($post);
     echo '</div>';
 }
-function product_comparison_sidebar_color_fields($post) {
+function product_comparison_sidebar_color_fields($post)
+{
     echo '<h3>Color Scheme</h3>';
     field_color($post, 'primary_color', 'Primary Color');
     field_color($post, 'secondary_color', 'Secondary Color');
@@ -354,21 +361,32 @@ function product_review_fields($post)
     echo '<h3>Product Review Details</h3>';
 
     echo '<h4>Site Information</h4>';
-    field_text($post, 'site_name', 'Site Name');
-    field_text($post, 'site_url', 'Site URL');
+    field_text($post, 'site_name', 'Site Name', 'versus.reviews');
+    field_text($post, 'site_url', 'Site URL', 'https://versus.reviews/');
+
+    
+    echo '<h4>General Settings</h4>';
+    field_text($post, 'meta_keywords', 'Meta Keywords');
+    field_textarea($post, 'meta_description', 'Meta Description');
 
     echo '<h4>General Settings</h4>';
-    field_text($post, 'logo_url', 'Logo URL');
-    field_image($post, 'author_image', 'Author Image URL');
-    field_text($post, 'author_name', 'Author Name');
-    field_text($post, 'best_product_category', 'Best Product Category');
+    field_text($post, 'logo_url', 'Logo URL', 'https://vitality.guide/wp-content/uploads/sites/5/2023/04/Vitality-Guide-logo-Photoroom-768x271.jpg');
+    field_image($post, 'author_image', 'Author Image URL', 'https://vitality.guide/wp-content/uploads/sites/5/2024/07/WhatsApp-Image-2024-07-25-at-19.05.33.jpeg');
+    field_text($post, 'author_name', 'Author Name', 'Peter Attia');
+    field_text($post, 'best_product_category', 'Best Product Category', 'facial product for men');
+
+    
+    echo '<h4>Discount Information</h4>';
+    field_text($post, 'discount_offer', 'Discount Offer', '20% Off');
+    field_text($post, 'discount_code', 'Discount Code', 'FACEVG');
 
     echo '<h4>Sidebar Ad</h4>';
     field_image($post, 'sidebar_ad_image', 'Ad Image URL');
 
     echo '<h4>Content</h4>';
-    field_editor($post, 'intro_headline', 'Intro Headline');
+    field_editor($post, 'intro_headline', 'Intro Headline', 'I tried out the top 5 men\'s facial products for beating eye bags, dark spots, and wrinkles. Here are my surprising results…');
     field_editor($post, 'intro_paragraph', 'Intro Paragraph');
+
     field_number($post, 'num_products', 'Number of Products', 1, 10);
 
     echo '<h4>Custom Product Fields</h4>';
@@ -379,7 +397,10 @@ function product_review_fields($post)
     }
     echo '<button type="button" id="add_custom_field">Add Custom Field</button>';
 
-    $num_products = get_post_meta($post->ID, 'num_products', true) ?: 5;
+    $num_products = get_post_meta($post->ID, 'num_products', true) ? get_post_meta($post->ID, 'num_products', true) : 5;
+
+    $num_products = (int) $num_products;
+
     for ($i = 1; $i <= $num_products; $i++) {
         echo "<h4>Product $i" . ($i === 1 ? ' (Best Product)' : '') . "</h4>";
         field_text($post, "product_{$i}_name", 'Name');
@@ -389,21 +410,23 @@ function product_review_fields($post)
         field_text($post, "product_{$i}_price", 'Price');
         field_text($post, "product_{$i}_rating", 'Overall Rating');
         field_editor($post, "product_{$i}_description", 'Description');
+
+        // field_text($post, 'pk_product_data', 'Product Data');
     }
 
     echo '<h4>Conclusion</h4>';
-    field_editor($post, 'conclusion_headline1', 'Conclusion Headline 1');
-    field_editor($post, 'conclusion_para1', 'Conclusion Paragraph 1');
+    field_editor($post, 'conclusion_headline1', 'Conclusion Headline 1', 'Why I chose .....');
+    field_editor($post, 'conclusion_para1', 'Conclusion Paragraph 1', 'eb5 is my clear winner for effectiveness, affordability, and versatility.');
     field_image($post, 'conclusion_image1', 'Conclusion Image 1');
-    field_editor($post, 'conclusion_para2', 'Conclusion Paragraph 2');
-    field_editor($post, 'conclusion_headline2', 'Conclusion Headline 2');
-    field_editor($post, 'conclusion_para3', 'Conclusion Paragraph 3');
+    field_editor($post, 'conclusion_para2', 'Conclusion Paragraph 2', 'Affordability is another critical factor.');
+    field_editor($post, 'conclusion_headline2', 'Conclusion Headline 2', 'How Does XYZ work');
+    field_editor($post, 'conclusion_para3', 'Conclusion Paragraph 3', 'The effectiveness of XYZ comes down to');
     field_image($post, 'conclusion_image2', 'Conclusion Image 2');
     field_editor($post, 'conclusion_para4', 'Conclusion Paragraph 4');
 
     echo '<h4>CTA</h4>';
-    field_text($post, 'cta_text', 'CTA Text');
-    field_text($post, 'cta_link', 'CTA Link');
+    field_text($post, 'cta_text', 'CTA Text', 'Learn More');
+    field_text($post, 'cta_link', 'CTA Link', 'https://eb5.com/products/face-cream-for-men');
 }
 
 function product_comparison_fields($post)
@@ -493,13 +516,25 @@ function product_comparison_sidebar_fields($post)
 }
 
 // Helper functions for field generation
-function field_text($post, $key, $label)
+function field_text($post, $key, $label, $default_value = '')
 {
     $value = get_post_meta($post->ID, $key, true);
+    if( empty($value) ) {
+        $value = $default_value;
+    }
     echo "<p><label for='$key'><strong>$label</strong> ($key)</label><br>";
     echo "<input type='text' id='$key' name='$key' value='" . esc_attr($value) . "' class='widefat'></p>";
 }
 
+function field_textarea($post, $key, $label, $default_value = '')
+{
+    $value = get_post_meta($post->ID, $key, true);
+    if( empty($value) ) {
+        $value = $default_value;
+    }
+    echo "<p><label for='$key'><strong>$label</strong> ($key)</label><br>";
+    echo "<textarea type='text' id='$key' name='$key'  class='widefat'>".esc_attr($value)."</textarea></p>";
+}
 function field_select($post, $key, $label, $options)
 {
     // Retrieve the current value of the custom field
@@ -518,17 +553,23 @@ function field_select($post, $key, $label, $options)
 }
 
 
-function field_editor($post, $key, $label)
+function field_editor($post, $key, $label, $default_value = '')
 {
     $value = get_post_meta($post->ID, $key, true);
+    if( empty($value) ) {
+        $value = $default_value;
+    }
     echo "<p><label for='$key'><strong>$label</strong> ($key)</label><br>";
     wp_editor($value, $key, array('textarea_name' => $key, 'textarea_rows' => 5));
     echo "</p>";
 }
 
-function field_image($post, $key, $label)
+function field_image($post, $key, $label, $default_value = '')
 {
     $value = get_post_meta($post->ID, $key, true);
+    if( empty($value) ) {
+        $value = $default_value;
+    }
     echo "<p><label for='$key'><strong>$label</strong> ($key)</label><br>";
     echo "<input type='text' id='$key' name='$key' value='" . esc_attr($value) . "' class='widefat'>";
     echo "<button type='button' class='upload-image-button button' data-field='$key'>Choose Image</button>";
@@ -615,6 +656,10 @@ function save_product_meta($post_id)
         'conclusion_para4',
         'cta_text',
         'cta_link',
+        'discount_offer',
+        'discount_code',
+        'meta_keywords',
+        'meta_description',
 
         // Product Comparison fields
         'disclosure_top',
@@ -707,6 +752,8 @@ function save_product_meta($post_id)
                 if ($field === 'link') {
                     $value = esc_url_raw($_POST[$key]);
                 }
+
+                // var_dump($value);
 
                 update_post_meta($post_id, $key, $value);
             }

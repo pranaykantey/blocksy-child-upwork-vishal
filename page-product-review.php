@@ -3,13 +3,16 @@
 Template Name: Product Review
 */
 
-function add_open_graph_tags() {
+function add_open_graph_tags()
+{
     global $post;
     $intro_headline = get_post_meta($post->ID, 'intro_headline', true) ?: 'I tried out the top 5 men\'s facial products for beating eye bags, dark spots, and wrinkles. Here are my surprising results…';
     $author_name = get_post_meta($post->ID, 'author_name', true) ?: 'Peter Attia';
     $site_name = get_post_meta($post->ID, 'site_name', true) ?: 'versus.reviews';
     $site_url = get_post_meta($post->ID, 'site_url', true) ?: 'https://versus.reviews/';
-    ?>
+    $meta_keywords = get_post_meta($post->ID, 'meta_keywords', true);
+    $meta_description = get_post_meta($post->ID, 'meta_description', true);
+?>
     <meta property="og:title" content="<?php echo esc_attr(get_the_title()); ?>" />
     <meta property="og:description" content="<?php echo esc_attr($intro_headline); ?>" />
     <meta property="og:url" content="<?php echo esc_url(get_permalink()); ?>" />
@@ -21,7 +24,9 @@ function add_open_graph_tags() {
     <meta property="og:article:author:name" content="<?php echo esc_attr($author_name); ?>" />
     <meta property="og:article:reading_time" content="6 minutes" />
     <meta property="og:site:url" content="<?php echo esc_url($site_url); ?>" />
-    <?php
+    <meta name="keywords" content="<?php echo esc_html($meta_keywords); ?>">
+    <meta name="description" content="<?php echo esc_html($meta_description); ?>">
+<?php
 }
 add_action('wp_head', 'add_open_graph_tags');
 
@@ -52,6 +57,11 @@ $site_url = get_post_meta(get_the_ID(), 'site_url', true) ?: 'https://versus.rev
 $custom_fields = get_post_meta(get_the_ID(), 'custom_product_fields', true) ?: array('Effectiveness', 'Safety', 'Price');
 $best_product_category = get_post_meta(get_the_ID(), 'best_product_category', true) ?: 'facial product for men';
 $best_product_name = get_post_meta(get_the_ID(), "product_1_name", true);
+
+$discount_offer = get_post_meta(get_the_ID(), 'discount_offer', true);
+$discount_code = get_post_meta(get_the_ID(), 'discount_code', true);
+
+// var_dump($num_products);
 ?>
 
 <div class="site">
@@ -73,7 +83,7 @@ $best_product_name = get_post_meta(get_the_ID(), "product_1_name", true);
                         <span>
                             <?php echo get_the_date('F j, Y'); ?>
                         </span>
-                    </div>     
+                    </div>
 
                     <header class="entry-header">
                         <h1 class="entry-title" itemprop="name"><?php the_title(); ?></h1>
@@ -85,10 +95,10 @@ $best_product_name = get_post_meta(get_the_ID(), "product_1_name", true);
                             <span class="author-name" itemprop="name"><?php echo esc_html($author_name); ?></span>
                         </div>
                     </div>
-                    
+
                     <div class="entry-content" itemprop="reviewBody">
                         <h2 class="intro-headline product-review-subtitle"><?php echo wp_kses_post($intro_headline); ?></h2>
-                        
+
                         <?php if (has_post_thumbnail()): ?>
                             <div class="wp-block-image">
                                 <figure class="aligncenter size-large">
@@ -98,7 +108,7 @@ $best_product_name = get_post_meta(get_the_ID(), "product_1_name", true);
                         <?php endif; ?>
 
                         <p class="intro-paragraph has-medium-font-size" style="line-height:1.4"><?php echo wp_kses_post($intro_paragraph); ?></p>
-                        
+
                         <?php
                         // Store the winner section in a variable to reuse later
                         ob_start();
@@ -120,14 +130,14 @@ $best_product_name = get_post_meta(get_the_ID(), "product_1_name", true);
                             <div class="wp-block-buttons is-content-justification-center is-layout-flex wp-container-core-buttons-layout-1 wp-block-buttons-is-layout-flex">
                                 <div class="wp-block-button has-custom-width wp-block-button__width-75 has-custom-font-size aligncenter is-style-fill has-medium-font-size">
                                     <a class="wp-block-button__link has-bright-blue-background-color has-background wp-element-button" href="<?php echo esc_url($cta_link); ?>" style="border-radius:20px" target="_blank" rel="noreferrer noopener"><?php echo esc_html($cta_text); ?></a>
-                                </div>    
+                                </div>
                             </div>
-                            
+
                             <p class="has-text-align-center">
-                                <strong>Get 20% Off Your Purchase!</strong>
+                                <strong>Get <?php echo esc_html($discount_offer); ?> Your Purchase!</strong>
                                 <br>
-                                <strong>With Special Promo Code 
-                                    <mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-vivid-red-color">FACEVG</mark>
+                                <strong>With Special Promo Code
+                                    <mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-vivid-red-color"><?php echo esc_html($discount_code); ?></mark>
                                 </strong>
                                 <br>
                                 <strong>Exclusive for Vitality Guide Readers!</strong>
@@ -143,35 +153,36 @@ $best_product_name = get_post_meta(get_the_ID(), "product_1_name", true);
                             $rating = get_post_meta(get_the_ID(), "product_{$i}_rating", true);
                             $image = get_post_meta(get_the_ID(), "product_{$i}_image", true);
                             $description = get_post_meta(get_the_ID(), "product_{$i}_description", true);
-                            ?>
+                        ?>
 
                             <div itemprop="itemReviewed" itemscope itemtype="https://schema.org/Product">
                                 <h2 style="font-size: 28px;">
-                <strong><strong><strong><strong><?php echo $i . ". "; ?>
-                <?php if ($i === 1): ?>
-                    <a href="<?php echo esc_url($cta_link); ?>" target="_blank" rel="noopener noreferrer">
-                        <span itemprop="name"><?php echo esc_html($name); ?></span>
-                    </a>
-                <?php else: ?>
-                    <span itemprop="name"><?php echo esc_html($name); ?></span>
-                <?php endif; ?>
-                </strong></strong></strong></strong>
-            </h2>
+                                    <strong>
+                                        <?php echo $i . ". "; ?>
+                                        <?php if ($i === 1): ?>
+                                            <a href="<?php echo esc_url($cta_link); ?>" target="_blank" rel="noopener noreferrer">
+                                                <span itemprop="name"><?php echo esc_html($name); ?></span>
+                                            </a>
+                                        <?php else: ?>
+                                            <span itemprop="name"><?php echo esc_html($name); ?></span>
+                                        <?php endif; ?>
+                                    </strong>
+                                </h2>
 
-            <div class="wp-block-image product-image-container">
-                <figure class="aligncenter size-large">
-                <?php if ($i === 1): ?>
-                    <a href="<?php echo esc_url($cta_link); ?>" target="_blank" rel="noopener noreferrer">
-                        <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($name); ?>" loading="lazy" itemprop="image">
-                    </a>
-                <?php else: ?>
-                    <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($name); ?>" loading="lazy" itemprop="image">
-                <?php endif; ?>
-                </figure>
-            </div>
+                                <div class="wp-block-image product-image-container">
+                                    <figure class="aligncenter size-large">
+                                        <?php if ($i === 1): ?>
+                                            <a href="<?php echo esc_url($cta_link); ?>" target="_blank" rel="noopener noreferrer">
+                                                <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($name); ?>" loading="lazy" itemprop="image">
+                                            </a>
+                                        <?php else: ?>
+                                            <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($name); ?>" loading="lazy" itemprop="image">
+                                        <?php endif; ?>
+                                    </figure>
+                                </div>
 
                                 <p class="has-background" style="background-color: #e6e6e640">
-                                    <?php foreach ($custom_fields as $field): 
+                                    <?php foreach ($custom_fields as $field):
                                         $field_key = sanitize_key($field);
                                         $field_value = get_post_meta(get_the_ID(), "product_{$i}_{$field_key}", true);
                                     ?>
@@ -192,7 +203,7 @@ $best_product_name = get_post_meta(get_the_ID(), "product_1_name", true);
                                     <?php echo wpautop(wp_kses_post($description)); ?>
                                 </div>
 
-                                <?php 
+                                <?php
                                 // Display the winner section after the first product
                                 if ($i === 1) {
                                     echo $winner_section;
@@ -200,11 +211,11 @@ $best_product_name = get_post_meta(get_the_ID(), "product_1_name", true);
                                 ?>
                             </div>
                         <?php endfor; ?>
-                        
+
                         <div class="conclusion">
                             <h3><?php echo wp_kses_post($conclusion_headline1); ?></h3>
                             <p><?php echo wp_kses_post($conclusion_para1); ?></p>
-                            
+
                             <?php if ($conclusion_image1): ?>
                                 <div class="wp-block-image">
                                     <figure class="aligncenter size-large">
@@ -212,12 +223,12 @@ $best_product_name = get_post_meta(get_the_ID(), "product_1_name", true);
                                     </figure>
                                 </div>
                             <?php endif; ?>
-                            
+
                             <p><?php echo wp_kses_post($conclusion_para2); ?></p>
-                            
+
                             <h3><?php echo wp_kses_post($conclusion_headline2); ?></h3>
                             <p><?php echo wp_kses_post($conclusion_para3); ?></p>
-                            
+
                             <?php if ($conclusion_image2): ?>
                                 <div class="wp-block-image">
                                     <figure class="aligncenter size-large">
@@ -225,7 +236,7 @@ $best_product_name = get_post_meta(get_the_ID(), "product_1_name", true);
                                     </figure>
                                 </div>
                             <?php endif; ?>
-                            
+
                             <p><?php echo wp_kses_post($conclusion_para4); ?></p>
                         </div>
 
