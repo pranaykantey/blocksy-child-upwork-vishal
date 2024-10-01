@@ -140,7 +140,14 @@ $discount_code = get_post_meta(get_the_ID(), 'discount_code', true);
                                     <mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-vivid-red-color"><?php echo esc_html($discount_code); ?></mark>
                                 </strong>
                                 <br>
-                                <strong>Exclusive for Vitality Guide Readers!</strong>
+                                <strong>Exclusive for <?php
+                                    if( !empty($site_name) ) {
+                                        $nsn = str_replace('.', ' ', $site_name);
+                                        echo ucwords($nsn);
+                                    }else {
+                                        echo 'Vitality Guide';
+                                    }
+                                ?> Readers!</strong>
                             </p>
                         </div>
                         <?php

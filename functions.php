@@ -427,6 +427,7 @@ function product_review_fields($post)
     echo '<h4>CTA</h4>';
     field_text($post, 'cta_text', 'CTA Text', 'Learn More');
     field_text($post, 'cta_link', 'CTA Link', 'https://eb5.com/products/face-cream-for-men');
+
 }
 
 function product_comparison_fields($post)
@@ -632,6 +633,37 @@ function save_product_meta($post_id)
 
     $template = get_page_template_slug($post_id);
 
+    // $fields_to_save = array(
+    //     // Common fields
+    //     'num_products',
+    //     'logo_url',
+    //     'author_image',
+    //     'author_name',
+    //     'site_name',
+    //     'site_url',
+
+    //     // Product Review fields
+    //     'best_product_category',
+    //     'sidebar_ad_image',
+    //     'intro_headline',
+    //     'intro_paragraph',
+    //     'conclusion_headline1',
+    //     'conclusion_para1',
+    //     'conclusion_image1',
+    //     'conclusion_para2',
+    //     'conclusion_headline2',
+    //     'conclusion_para3',
+    //     'conclusion_image2',
+    //     'conclusion_para4',
+    //     'cta_text',
+    //     'cta_link',
+    //     'discount_offer',
+    //     'discount_code',
+    //     'meta_keywords',
+    //     'meta_description',
+
+    // );
+
     $fields_to_save = array(
         // Common fields
         'num_products',
@@ -640,69 +672,77 @@ function save_product_meta($post_id)
         'author_name',
         'site_name',
         'site_url',
-
-        // Product Review fields
-        'best_product_category',
-        'sidebar_ad_image',
-        'intro_headline',
-        'intro_paragraph',
-        'conclusion_headline1',
-        'conclusion_para1',
-        'conclusion_image1',
-        'conclusion_para2',
-        'conclusion_headline2',
-        'conclusion_para3',
-        'conclusion_image2',
-        'conclusion_para4',
-        'cta_text',
-        'cta_link',
-        'discount_offer',
-        'discount_code',
-        'meta_keywords',
-        'meta_description',
-
-        // Product Comparison fields
-        'disclosure_top',
-        'subtitle',
-        'benefits_nav_text',
-        'ingredients_nav_text',
-        'top_5_nav_text',
-        'disclosure',
-        'effect_image',
-        'benefits_title',
-        'benefits_content',
-        'usage_title',
-        'usage_content',
-        'ingredients_to_look_for_title',
-        'ingredients_to_look_for_content',
-        'ingredients_to_avoid_title',
-        'ingredients_to_avoid_content',
-        'considerations_title',
-        'considerations_content',
-        'top_products_title',
-        'citations_title',
-        'citations',
-        'back_to_top_text',
-        // Sidebar Fields.
-        'sidebar_1_title',
-        'sidebar_1_subtitle',
-        'sidebar_1_image_1',
-        'sidebar_1_image_2',
-        'sidebar_2_title',
-        'sidebar_2_subtitle',
-        'sidebar_2_link_title_top5',
-        'primary_color',
-        'secondary_color',
-        'tertiary_color',
-        'marked_bg_color',
-        'button_color',
-        'sidebar_2_icon_1',
-        'sidebar_2_icon_2',
-        'sidebar_2_icon_3',
-        'sidebar_2_icon_4',
-        'sidebar_2_icon_5',
-        'sidebar_2_icon_6',
     );
+    $template = get_page_template_slug($post_id);
+    if($template === 'page-product-review.php') {
+        $fields_to_save = $fields_to_save + [
+            // Product Review fields
+            'best_product_category',
+            'sidebar_ad_image',
+            'intro_headline',
+            'intro_paragraph',
+            'conclusion_headline1',
+            'conclusion_para1',
+            'conclusion_image1',
+            'conclusion_para2',
+            'conclusion_headline2',
+            'conclusion_para3',
+            'conclusion_image2',
+            'conclusion_para4',
+            'cta_text',
+            'cta_link',
+            'discount_offer',
+            'discount_code',
+            'meta_keywords',
+            'meta_description',
+        ];
+    }
+    
+    if($template === 'single-product-comparison.php') {
+        $fields_to_save = $fields_to_save + [
+            // Product Comparison fields
+            'disclosure_top',
+            'subtitle',
+            'benefits_nav_text',
+            'ingredients_nav_text',
+            'top_5_nav_text',
+            'disclosure',
+            'effect_image',
+            'benefits_title',
+            'benefits_content',
+            'usage_title',
+            'usage_content',
+            'ingredients_to_look_for_title',
+            'ingredients_to_look_for_content',
+            'ingredients_to_avoid_title',
+            'ingredients_to_avoid_content',
+            'considerations_title',
+            'considerations_content',
+            'top_products_title',
+            'citations_title',
+            'citations',
+            'back_to_top_text',
+            // Sidebar Fields.
+            'sidebar_1_title',
+            'sidebar_1_subtitle',
+            'sidebar_1_image_1',
+            'sidebar_1_image_2',
+            'sidebar_2_title',
+            'sidebar_2_subtitle',
+            'sidebar_2_link_title_top5',
+            'primary_color',
+            'secondary_color',
+            'tertiary_color',
+            'marked_bg_color',
+            'button_color',
+            'sidebar_2_icon_1',
+            'sidebar_2_icon_2',
+            'sidebar_2_icon_3',
+            'sidebar_2_icon_4',
+            'sidebar_2_icon_5',
+            'sidebar_2_icon_6',
+        ];
+    }
 
     foreach ($fields_to_save as $field) {
         if (isset($_POST[$field])) {
