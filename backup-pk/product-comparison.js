@@ -65,3 +65,23 @@ jQuery(document).ready(function($) {
     updateProgress();
     updateActiveSection();
 });
+
+
+
+// jQuery(document).ready(function() {
+//     // Function to handle removing a field
+//     jQuery(document).on('click', '.remove-field', function() {
+//         alert('clicked remove');
+//         jQuery(this).prev('input').remove(); // Remove the input field
+//         jQuery(this).next('br').remove(); // Remove the <br> element
+//         jQuery(this).remove(); // Remove the remove button
+//     });
+
+//     // Function to add a new custom field
+//     jQuery('#add_custom_field').click(function() {
+//         var newField = '<input type=\"text\" name=\"custom_product_fields[]\" value=\"\">' + 
+//                     '<button type=\"button\" class=\"remove-field\">Remove</button><br>';
+//         jQuery(newField).insertBefore(this); // Insert the new field before the Add button
+//     });
+
+// });

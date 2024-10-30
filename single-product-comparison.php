@@ -328,55 +328,5 @@ $post_id = get_the_ID();
     </div>
 </div>
 
-<style>
-    body {
-        --single-product-comparison-primary-color: <?php echo $var = !empty(get_post_meta($post_id, 'primary_color', true)) ? get_post_meta($post_id, 'primary_color', true) : '#4585e6'; ?>;
-    }
-
-    .lp .right-panel h2 {
-        background-image: linear-gradient(to bottom, var(--single-product-comparison-primary-color) 10%, var(--single-product-comparison-primary-color) 92%);
-    }
-    .lp .nav-bar a:nth-child(2),
-    .lp .colored-table.blue h3 {
-        background-color: var(--single-product-comparison-primary-color);
-    }
-    body {
-        --single-product-comparison-secondary-color: <?php echo $var = !empty(get_post_meta($post_id, 'secondary_color', true)) ? get_post_meta($post_id, 'secondary_color', true) : '#59b377'; ?>;
-    }
-
-    .lp .colored-table.green h3 {
-        background-color: var(--single-product-comparison-secondary-color);
-    }
-    /* .lp .left .pros-cons li::before,
-    .lp i.icon-ok::before,
-    .lp .colored-table .icon.green::before {
-        color: var(--single-product-comparison-secondary-color);
-    } */
-    /* #eb5757 */
-    body {
-        --single-product-comparison-tertiary-color: <?php echo $var = !empty(get_post_meta($post_id, 'tertiary_color', true)) ? get_post_meta($post_id, 'tertiary_color', true) : '#eb5757'; ?>;
-    }
-    
-    .lp .colored-table.red h3 {
-        background-color: var(--single-product-comparison-tertiary-color);
-    }
-    /* .lp .colored-table .icon.red,
-    .lp .left .pros-cons ul:nth-of-type(2) li::before {
-        color: var(--single-product-comparison-tertiary-color);
-    } */
-
-    body {
-        /* button_color */
-        --button-bg-color: <?php echo $var = !empty(get_post_meta($post_id, 'button_color', true)) ? get_post_meta($post_id, 'button_color', true) : '#eb5757'; ?>;
-    }
-    .lp .right a:last-of-type {
-        background-color: var(--button-bg-color);
-    }
-    .nav-bar a {
-        display: flex !important;
-        justify-content: center;
-        align-items: center;
-    }
-</style>
 <?php get_footer(); ?>
 

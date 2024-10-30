@@ -1,0 +1,173 @@
+@font-face {
+  font-family: Merriweather;
+  src: url("../fonts/merriweather/merriweather-all-400-normal.woff");
+  font-weight: 400;
+}
+@font-face {
+  font-family: Merriweather;
+  src: url("../fonts/merriweather/merriweather-all-700-normal.woff");
+  font-weight: 700;
+}
+@font-face {
+  font-family: Merriweather;
+  src: url("../fonts/merriweather/merriweather-all-900-normal.woff");
+  font-weight: 900;
+}
+@font-face {
+  font-family: Montserrat;
+  src: url("../fonts/montserrat/static/Montserrat-Bold.ttf");
+  font-weight: 700;
+}
+body {
+  color: #1a1a1a;
+  background: #ffffff;
+  font-family: Merriweather, Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+body h1 {
+  font-family: Montserrat, Georgia, serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 1.225;
+}
+body h2 {
+  font-family: Merriweather, Georgia, serif;
+  font-weight: 700;
+}
+
+a {
+  color: #1f8afa;
+  margin-right: 5px;
+}
+
+p {
+  font-size: 16px;
+}
+
+mark {
+  background: none;
+  color: #1f8afa;
+}
+
+.site {
+  margin: 21px;
+}
+.site .site-inner {
+  margin: 0 auto;
+  max-width: 1275px;
+  position: relative;
+}
+.site .site-inner .site-header {
+  padding: 0 10px 20px;
+  border-bottom: 1px solid rgba(22, 52, 77, 0.1);
+  margin-bottom: 30px;
+  pointer-events: none;
+}
+.site .site-inner .site-header .site-header-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.site .site-inner .site-header .site-header-main .site-branding a img {
+  max-width: 130px;
+}
+.site .site-inner .content-area {
+  display: flex;
+  gap: 60px;
+  padding: 0 4.5455%;
+  align-items: start;
+}
+@media only screen and (max-width: 950px) {
+  .site .site-inner .content-area {
+    flex-direction: column;
+  }
+}
+.site .site-inner .content-area .site-main {
+  width: 65%;
+}
+@media only screen and (max-width: 950px) {
+  .site .site-inner .content-area .site-main {
+    width: 100%;
+  }
+}
+.site .site-inner .content-area .site-main .post-meta {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 13px;
+  font-size: 1rem;
+  color: #1a1a1a;
+}
+.site .site-inner .content-area .site-main .author-name-wrapper .author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.site
+  .site-inner
+  .content-area
+  .site-main
+  .author-name-wrapper
+  .author
+  .author-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 35px;
+}
+.site .site-inner .content-area .site-main .entry-content .wp-block-image {
+  margin: 2em 0 2em;
+}
+.site
+  .site-inner
+  .content-area
+  .site-main
+  .wp-block-group
+  .wp-block-group__inner-container
+  .wp-block-genesis-blocks-gb-container
+  .gb-container-inside
+  .gb-container-content
+  .wp-block-media-text {
+  margin-bottom: 20px;
+}
+.site .site-inner .content-area .site-main .wp-block-buttons {
+  margin: 2em 0 3.75em 0;
+}
+.site
+  .site-inner
+  .content-area
+  .site-main
+  .wp-block-buttons
+  .wp-block-button
+  a.wp-block-button__link {
+  background: #1f8afa;
+  font-family: Montserrat, "Helvetica Neue", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.sidebar.widget-area {
+  position: sticky;
+  top: 80px;
+  max-width: 25%;
+}
+@media only screen and (max-width: 950px) {
+  .site .site-inner .content-area .sidebar {
+    display: none;
+  }
+}
+.site .site-footer {
+  display: flex;
+  justify-content: center;
+  background: none;
+}
+
+.wp-block-heading.heading-2 {
+  font-family: Montserrat, Georgia, serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 1.225;
+}
+.subtitle {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
