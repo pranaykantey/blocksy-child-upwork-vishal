@@ -110,10 +110,12 @@ function log_message($message)
 
 log_message("Functions.php is being loaded");
 
-// Register product review template
+/************************************************************
+ ************* Register product review template *************
+ ************************************************************/
 function register_product_review_template($templates)
 {
-    $templates['page-product-review.php'] = 'Product Review';
+    $templates['all-templates/page-product-review.php'] = 'Product Review';
     return $templates;
 }
 add_filter('theme_page_templates', 'register_product_review_template');
@@ -122,7 +124,7 @@ add_filter('theme_post_templates', 'register_product_review_template');
 function add_product_review_to_post_templates($post_templates, $wp_theme, $post, $post_type)
 {
     if ('post' === $post_type) {
-        $post_templates['page-product-review.php'] = 'Product Review';
+        $post_templates['all-templates/page-product-review.php'] = 'Product Review';
     }
     return $post_templates;
 }
@@ -131,12 +133,72 @@ add_filter('theme_post_templates', 'add_product_review_to_post_templates', 10, 4
 // Load product review template
 function load_product_review_template($template)
 {
-    if (is_singular() && get_page_template_slug() === 'page-product-review.php') {
-        $template = locate_template('page-product-review.php');
+    if (is_singular() && get_page_template_slug() === 'all-templates/page-product-review.php') {
+        $template = locate_template('all-templates/page-product-review.php');
     }
     return $template;
 }
 add_filter('template_include', 'load_product_review_template', 99);
+
+/************************************************************
+ ********** ./ End Register product review template *********
+ ************************************************************/
+
+/************************************************************
+ ************* Register Expert review template *************
+ ************************************************************/
+add_action('init', function() {
+    $template_path = locate_template('all-templates/expert-review-template.php');
+    error_log('Template Path: ' . ($template_path ?: 'NOT FOUND'));
+});
+
+/**
+ * Register the template for pages.
+ */
+function register_expert_review_template($templates) {
+    $templates['all-templates/expert-review-template.php'] = 'Expert Review';
+    return $templates;
+}
+add_filter('theme_page_templates', 'register_expert_review_template'); // For pages
+
+/**
+ * Add template support for posts (manually handling since WP lacks a native post filter).
+ */
+function add_expert_review_template_to_posts($templates) {
+    $templates['all-templates/expert-review-template.php'] = 'Expert Review';
+    return $templates;
+}
+add_filter('theme_post_templates', 'add_expert_review_template_to_posts'); // Reusing page filter for posts
+
+/**
+ * Force loading the custom template for posts & pages.
+ */
+function load_expert_review_template($template) {
+    global $post;
+    
+    if (!$post) {
+        return $template;
+    }
+
+    // Get the assigned template for both pages & posts
+    $template_slug = get_post_meta($post->ID, '_wp_page_template', true);
+
+    if ($template_slug === 'all-templates/expert-review-template.php') {
+        $custom_template = locate_template('all-templates/expert-review-template.php');
+        if (!empty($custom_template)) {
+            return $custom_template;
+        }
+    }
+
+    return $template;
+}
+add_filter('template_include', 'load_expert_review_template', 99);
+
+
+/************************************************************
+ ********** ./ End Register expert review template *********
+ ************************************************************/
+
 
 
 // Register product comparison template
@@ -171,7 +233,8 @@ function add_footer_script_code()
     $template = get_page_template_slug($post->ID);
     if (
         $template == 'campaign-template.php' ||
-        $template == 'page-product-review.php' ||
+        $template == 'all-templates/page-product-review.php' ||
+        $template == 'all-templates/expert-review-template.php' ||
         $template == 'single-product-comparison.php' ||
         $template == 'simple-with-sidebar.php'
     ) :
@@ -207,6 +270,11 @@ if (file_exists(__DIR__ . '/includes/save-by-api-functions.php')) {
 // common functions.
 if (file_exists(__DIR__ . '/includes/common-functions.php')) {
     require_once('includes/common-functions.php');
+}
+
+// review template functions.
+if (file_exists(__DIR__ . '/includes/expert-review-functions.php')) {
+    require_once('includes/expert-review-functions.php');
 }
 // review template functions.
 if (file_exists(__DIR__ . '/includes/review-functions.php')) {

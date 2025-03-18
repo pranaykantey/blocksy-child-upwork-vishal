@@ -38,23 +38,23 @@ $GLOBALS['product_review_fields'] = array(
 log_message("Functions.php is being loaded");
 
 // Enqueue parent and child styles
-function review_enqueue_styles()
-{
-    wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
-    wp_enqueue_style('child-style', get_stylesheet_uri());
+// function review_enqueue_styles()
+// {
+//     wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
+//     wp_enqueue_style('child-style', get_stylesheet_uri());
 
-    // wp_enqueue_style('product-comparison-style', get_stylesheet_directory_uri() . '/product-comparison.css', array(), '1.1');
-    // wp_enqueue_script('product-comparison-script', get_stylesheet_directory_uri() . '/product-comparison.js', array('jquery'), '1.1', true);
+//     // wp_enqueue_style('product-comparison-style', get_stylesheet_directory_uri() . '/product-comparison.css', array(), '1.1');
+//     // wp_enqueue_script('product-comparison-script', get_stylesheet_directory_uri() . '/product-comparison.js', array('jquery'), '1.1', true);
 
-    log_message("Styles enqueued: parent-style and child-style");
-}
-add_action('wp_enqueue_scripts', 'review_enqueue_styles');
+//     log_message("Styles enqueued: parent-style and child-style");
+// }
+// add_action('wp_enqueue_scripts', 'review_enqueue_styles');
 
 
 // Register product review template
 // function register_product_review_template($templates)
 // {
-//     $templates['all-templates/page-product-review.php'] = 'Product Review';
+//     $templates['page-product-review.php'] = 'Product Review';
 //     return $templates;
 // }
 // add_filter('theme_page_templates', 'register_product_review_template');
@@ -63,7 +63,7 @@ add_action('wp_enqueue_scripts', 'review_enqueue_styles');
 // function add_product_review_to_post_templates($post_templates, $wp_theme, $post, $post_type)
 // {
 //     if ('post' === $post_type) {
-//         $post_templates['all-templates/page-product-review.php'] = 'Product Review';
+//         $post_templates['page-product-review.php'] = 'Product Review';
 //     }
 //     return $post_templates;
 // }
@@ -74,26 +74,26 @@ add_action('wp_enqueue_scripts', 'review_enqueue_styles');
 // // Load product review template
 // function load_product_review_template($template)
 // {
-//     if (is_singular() && get_page_template_slug() === 'all-templates/page-product-review.php') {
-//         $template = locate_template('all-templates/page-product-review.php');
+//     if (is_singular() && get_page_template_slug() === 'page-product-review.php') {
+//         $template = locate_template('page-product-review.php');
 //     }
 //     return $template;
 // }
 // add_filter('template_include', 'load_product_review_template', 99);
 
 // Add meta box for product review and comparison
-function add_product_meta_box_review()
+function add_expert_review_metabox()
 {
     log_message("Attempting to add product meta box");
     $post_types = array('post', 'page');
     foreach ($post_types as $post_type) {
         global $post;
         $template = get_page_template_slug($post->ID);
-        if ($template == 'all-templates/page-product-review.php') {
+        if ($template == 'all-templates/expert-review-template.php') {
             add_meta_box(
-                'product_meta_box_review',
+                'expert_template_metabox',
                 'Product Details',
-                'product_meta_box_review_callback',
+                'expert_template_metabox_callback',
                 $post_type,
                 'normal',
                 'high'
@@ -103,7 +103,7 @@ function add_product_meta_box_review()
     log_message("Product meta box added");
 }
 
-add_action('add_meta_boxes', 'add_product_meta_box_review');
+add_action('add_meta_boxes', 'add_expert_review_metabox');
 
 
 // function get_post_meta_with_fallback($post_id, $key, $single = true)
@@ -115,18 +115,18 @@ add_action('add_meta_boxes', 'add_product_meta_box_review');
 //     return $value;
 // }
 
-function product_meta_box_review_callback($post)
+function expert_template_metabox_callback($post)
 {
     log_message("Product meta box callback started for post ID: " . $post->ID);
     $template = get_page_template_slug($post->ID);
     log_message("Template for post ID " . $post->ID . ": " . $template);
 
-    wp_nonce_field('product_meta_box_review', 'product_meta_box_review_nonce');
+    wp_nonce_field('expert_review_template_metabox', 'expert_review_template_metabox_nonce');
 
-    echo '<div id="product-review-fields" ' . ($template !== 'all-templates/page-product-review.php' ? 'style="display:block;"' : '') . '>';
+    echo '<div id="product-expert-review-fields" ' . ($template !== 'all-templates/expert-review-template.php' ? 'style="display:none;"' : '') . '>';
     log_message("Displaying product review fields");
-    if ($template === 'all-templates/page-product-review.php') {
-        product_review_fields($post);
+    if ($template === 'all-templates/expert-review-template.php') {
+        product_expert_review_fields($post);
     }
     echo '</div>';
 
@@ -145,9 +145,9 @@ function product_meta_box_review_callback($post)
 
 
 
-function product_review_fields($post)
+function product_expert_review_fields($post)
 {
-    echo '<h3>Product Review Details</h3>';
+    echo '<h3>Expert Details</h3>';
 
     echo '<h4>Site Information</h4>';
     field_text($post, 'site_name', 'Site Name', 'versus.reviews');
@@ -162,8 +162,18 @@ function product_review_fields($post)
     field_text($post, 'logo_url', 'Logo URL', 'https://vitality.guide/wp-content/uploads/sites/5/2023/04/Vitality-Guide-logo-Photoroom-768x271.jpg');
     field_image($post, 'author_image', 'Author Image URL', 'https://vitality.guide/wp-content/uploads/sites/5/2024/07/WhatsApp-Image-2024-07-25-at-19.05.33.jpeg');
     field_text($post, 'author_name', 'Author Name', 'Peter Attia');
+    field_textarea($post, 'author_tagline', "Author Tagline", "As a strength coach and daily weightlifter, I switched from whey to beef protein due to health concerns. I tested dozens of brands, and now I'm sharing what I discovered!");
     field_text($post, 'best_product_category', 'Best Product Category', 'facial product for men');
 
+    field_number($post, 'analyzed_count', 'Ratings analyzed', 1, 100000);
+    field_number($post, 'research_hours', 'Hours researching', 1, 100000);
+    field_number($post, 'brands_count', 'Brands purchased', 1, 100000);
+
+    echo '<h4>Research Reason</h4>';
+    field_text($post, 'research_reason_title', 'Research Reason Title', 'Why I Did This Research');
+    field_editor($post, 'research_reason_content', 'Research Reason Content', 'Research Reason Content');
+    field_gallery($post, 'research_reason_gallery', 'Research Reason Gallery');
+    field_text($post, 'research_reason_caption', 'Research Reason Caption', 'Research Reason Caption');
 
     echo '<h4>Discount Information</h4>';
     field_text($post, 'discount_offer', 'Discount Offer', '20% Off');
@@ -176,16 +186,20 @@ function product_review_fields($post)
     field_editor($post, 'intro_headline', 'Intro Headline', 'I tried out the top 5 men\'s facial products for beating eye bags, dark spots, and wrinkles. Here are my surprising results…');
     field_editor($post, 'intro_paragraph', 'Intro Paragraph');
 
+
+
     field_number($post, 'num_products', 'Number of Products', 1, 10);
 
-    echo '<h4>Custom Product Fields</h4>';
     echo '<div class="custom-product-fields">';
+    echo '<h4>Custom Product Fields</h4>';
+    echo '<div>';
     $custom_fields = get_post_meta($post->ID, 'custom_product_fields', true) ?: array('Effectiveness', 'Safety', 'Price');
     foreach ($custom_fields as $field) {
         echo '<input type="text" name="custom_product_fields[]" value="' . esc_attr($field) . '">';
         echo '<button type="button" class="remove-field">Remove</button><br>';
     }
     echo '<button type="button" id="add_custom_field">Add Custom Field</button>';
+    echo '</div>';
     echo '</div>';
 
 
@@ -197,6 +211,44 @@ function product_review_fields($post)
         echo "<h4>Product $i" . ($i === 1 ? ' (Best Product)' : '') . "</h4>";
         field_text($post, "product_{$i}_name", 'Name');
         field_image($post, "product_{$i}_image", 'Image URL');
+        field_editor($post, "product_{$i}_ingredients", 'Ingredients', '', 'Enter values with , (coma)');
+        field_editor($post, "product_{$i}_pros", "Pros");
+        field_editor($post, "product_{$i}_cons", "Cons");
+
+
+
+        // field_text($post, "product_{$i}_effectiveness", 'Effectiveness');
+        // field_text($post, "product_{$i}_safety", 'Safety');
+        // field_text($post, "product_{$i}_price", 'Price');
+        //  'what_i_love', 'could_be_better',
+        field_gallery($post, "product_{$i}_top_gallery", "Top Gallery");
+        field_text($post, "product_{$i}_top_gallery_caption", "Top Gallery Caption");
+        field_text($post, "product_{$i}_tested", "Tested");
+        field_text($post, "product_{$i}_weight", "Weight");
+        field_text($post, "product_{$i}_rating", 'Overall Rating');
+        field_text($post, "product_{$i}_rating_ingredients", 'Ingredients Rating');
+        field_text($post, "product_{$i}_rating_bioavailability", 'Bioavailability Rating');
+        field_text($post, "product_{$i}_rating_taste", 'Taste Rating');
+        field_text($post, "product_{$i}_rating_mixability", 'Mixability Rating');
+        field_text($post, "product_{$i}_rating_digestibility", 'Digestibility Rating');
+
+
+
+
+        field_editor($post, "product_{$i}_description", 'Description');
+        field_text($post, "product_{$i}_flavor", 'Flavor');
+        field_text($post, "product_{$i}_flavor_type", 'Flavor Type');
+        field_editor($post, "product_{$i}_flavors", 'Flavours');
+        field_text($post, "product_{$i}_link", 'Button Link');
+        field_editor($post, "product_{$i}_bottom_line", 'Bottom Coupon Info');
+        // "product_{$i}_bottom_line"
+        field_text($post, "product_{$i}_reference", 'Reference');
+        field_editor($post, "product_{$i}_what_i_love", 'What I Love');
+        field_editor($post, "product_{$i}_could_be_better", 'Could Be Better');
+        field_gallery($post, "product_{$i}_bottom_gallery", "Bottom Gallery");
+        field_text($post, "product_{$i}_bottom_gallery_caption", "Bottom Gallery Caption");
+        field_text($post, "product_{$i}_offer_date", "Offer Date");
+        // "product_{$i}_offer_date"
 
         $custom_fields = get_post_meta($post->ID, 'custom_product_fields', true) ?: array('Effectiveness', 'Safety', 'Price');
         foreach ($custom_fields as $field) {
@@ -205,25 +257,36 @@ function product_review_fields($post)
             field_text($post, "product_{$i}_" . $newFieldVal, $field);
         }
 
-        // field_text($post, "product_{$i}_effectiveness", 'Effectiveness');
-        // field_text($post, "product_{$i}_safety", 'Safety');
-        // field_text($post, "product_{$i}_price", 'Price');
 
-        field_text($post, "product_{$i}_rating", 'Overall Rating');
-        field_editor($post, "product_{$i}_description", 'Description');
 
         // field_text($post, 'pk_product_data', 'Product Data');
     }
 
     echo '<h4>Conclusion</h4>';
-    field_editor($post, 'conclusion_headline1', 'Conclusion Headline 1', 'Why I chose .....');
-    field_editor($post, 'conclusion_para1', 'Conclusion Paragraph 1', 'eb5 is my clear winner for effectiveness, affordability, and versatility.');
-    field_image($post, 'conclusion_image1', 'Conclusion Image 1');
-    field_editor($post, 'conclusion_para2', 'Conclusion Paragraph 2', 'Affordability is another critical factor.');
-    field_editor($post, 'conclusion_headline2', 'Conclusion Headline 2', 'How Does XYZ work');
+    field_text($post, 'conclusion_headline1', 'Conclusion Headline 1', 'What Factors Matter In A Quality Beef Protein Powder According To Experts?');
+    field_editor($post, 'conclusion_para1', 'Conclusion Paragraph 1', 'I consulted with registered dietitians and sport nutritionists and came up with this list of of key factors that separate premium beef protein from lower quality options:');
+    field_editor($post, 'conclusion_para2', 'Conclusion Paragraph 2', '<ul>
+    <li>✅ Grass fed</li>
+    <li>✅ 100% lean beef</li>
+    <li>✅ High quality ingredients</li>
+    <li>✅ Minimal ingredients</li>
+    <li>✅ Transparent labeling</li>
+    <li>✅ Third party testing</li>
+    <li>✅ Low Calorie</li>
+    <li>✅ Taste</li>
+    <li>✅ Ease of mixing</li>
+    </ul>');
+
     field_editor($post, 'conclusion_para3', 'Conclusion Paragraph 3', 'The effectiveness of XYZ comes down to');
-    field_image($post, 'conclusion_image2', 'Conclusion Image 2');
+
+    field_text($post, 'conclusion_headline2', 'Conclusion Headline 2', 'How Does XYZ work');
+
     field_editor($post, 'conclusion_para4', 'Conclusion Paragraph 4');
+
+    field_image($post, 'conclusion_image1', 'Conclusion Image 1');
+    field_image($post, 'conclusion_image2', 'Conclusion Image 2');
+    field_text($post, 'conclusion_image_overlay', 'Conclusion Image Overlay', 'Having fun testing and scoring 15 protein powders! ');
+    field_text($post, 'conclusion_headline3', 'Conclusion Heading 3', 'My Pick For The Best Beef Protein Powder');
 
     echo '<h4>CTA</h4>';
     field_text($post, 'cta_text', 'CTA Text', 'Learn More');
@@ -238,7 +301,7 @@ function product_review_fields($post)
 
 //         global $post;
 //         $template = get_page_template_slug($post->ID);
-//         if ($template == 'all-templates/page-product-review.php') {
+//         if ($template == 'page-product-review.php') {
 //             add_meta_box(
 //                 'product_meta_box_review_global',
 //                 'Global Details',
@@ -261,9 +324,9 @@ function product_review_fields($post)
 
 //     wp_nonce_field('product_meta_box_review', 'product_meta_box_review_nonce');
 
-//     echo '<div id="product-review-fields" ' . ($template !== 'all-templates/page-product-review.php' ? 'style="display:none;"' : '') . '>';
+//     echo '<div id="product-review-fields" ' . ($template !== 'page-product-review.php' ? 'style="display:none;"' : '') . '>';
 //     log_message("Displaying product campaign fields");
-//     if ($template === 'all-templates/page-product-review.php') {
+//     if ($template === 'page-product-review.php') {
 //         product_campaign_global_fields($post);
 //     }
 //     echo '</div>';
@@ -285,9 +348,9 @@ function product_review_fields($post)
 /***
  * Save metabox fields.
  */
-function save_product_meta_review($post_id)
+function save_review_template_meta_boxes($post_id)
 {
-    if (!isset($_POST['product_meta_box_review_nonce']) || !wp_verify_nonce($_POST['product_meta_box_review_nonce'], 'product_meta_box_review')) {
+    if (!isset($_POST['expert_review_template_metabox_nonce']) || !wp_verify_nonce($_POST['expert_review_template_metabox_nonce'], 'expert_review_template_metabox')) {
         return;
     }
 
@@ -314,19 +377,29 @@ function save_product_meta_review($post_id)
         'conclusion_headline2',
         'conclusion_para3',
         'conclusion_image2',
+        'conclusion_image_overlay',
         'conclusion_para4',
+        'conclusion_headline3',
         'cta_text',
         'cta_link',
         'discount_offer',
         'discount_code',
         'num_products',
+        'analyzed_count',
+        'brands_count',
+        'research_hours',
         'logo_url',
         'author_image',
         'author_name',
+        'author_tagline',
         'site_name',
         'site_url',
         'meta_keywords',
         'meta_description',
+        'research_reason_title',
+        'research_reason_content',
+        'research_reason_gallery',
+        'research_reason_caption',
 
     );
 
@@ -365,11 +438,31 @@ function save_product_meta_review($post_id)
             'cons',
             'bottom_line',
             'rating',
+            "rating_ingredients",
+            "rating_bioavailability",
+            "rating_taste",
+            "rating_mixability",
+            "rating_digestibility",
             // 'effectiveness',
             // 'safety',
             // 'price',
             'field_one',
-            'description'
+            'description',
+            'ingredients',
+            'tested',
+            'weight',
+            'flavor',
+            'flavor_type',
+            'flavors',
+            'source',
+            'what_i_love',
+            'could_be_better',
+            "top_gallery",
+            "top_gallery_caption",
+            "bottom_gallery",
+            "bottom_gallery_caption",
+            "offer_date",
+            "reference",
         );
 
         $custom_fieldss = get_post_meta($post_id, 'custom_product_fields', true) ?: array('Effectiveness', 'Safety', 'Price');
@@ -385,9 +478,11 @@ function save_product_meta_review($post_id)
         foreach ($product_fields as $field) {
             $key = "product_{$i}_{$field}";
             if (isset($_POST[$key])) {
-                $value = in_array($field, array('pros', 'cons', 'bottom_line', 'description', 'link'))
-                    ? wp_kses_post($_POST[$key])
-                    : sanitize_text_field($_POST[$key]);
+                // $value = in_array($field, array('pros', 'cons', 'bottom_line', 'description', 'link'))
+                //     ? wp_kses_post($_POST[$key])
+                //     : sanitize_text_field($_POST[$key]);
+
+                $value = $_POST[$key];
 
                 // Special handling for the link field
                 if ($field === 'link') {
@@ -401,4 +496,4 @@ function save_product_meta_review($post_id)
         }
     }
 }
-add_action('save_post', 'save_product_meta_review');
+add_action('save_post', 'save_review_template_meta_boxes');

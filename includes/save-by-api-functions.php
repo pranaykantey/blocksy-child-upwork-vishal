@@ -49,6 +49,7 @@ function register_custom_fields_for_api()
         'logo_url',
         'author_image',
         'author_name',
+        'author_tagline',
         'site_name',
         'site_url'
     );
@@ -130,6 +131,18 @@ function register_custom_fields_for_api()
         'footer_text_link',
     );
 
+    $expert_review_template_fields = array(
+        'conclusion_headline3',
+        'conclusion_image_overlay',
+        'analyzed_count',
+        'brands_count',
+        'research_hours',
+        'research_reason_title',
+        'research_reason_content',
+        'research_reason_gallery',
+        'research_reason_caption',
+    );
+
     // $global_color_fields = array(
     //     'primary_color',
     //     'secondary_color',
@@ -140,14 +153,25 @@ function register_custom_fields_for_api()
 
     $global_color_fields = $GLOBALS['global_color_scheme_template'];
 
-    $all_fields = array_merge($common_fields, $product_review_fields, $product_comparison_fields, $product_campaign_fields, $product_simple_with_sidebar, $global_color_fields);
+    $all_fields = array_merge($common_fields, $product_review_fields, $product_comparison_fields, $product_campaign_fields, $product_simple_with_sidebar, $global_color_fields, $expert_review_template_fields);
 
     // Add product-specific fields
     for ($i = 1; $i <= 15; $i++) {
         $product_fields = array(
             "product_{$i}_name",
+            "product_{$i}_price",
+            "product_{$i}_description",
+            "product_{$i}_flavors",
+            "product_{$i}_flavor_type",
+            "product_{$i}_flavor_reviewed",
             "product_{$i}_brand",
+            "product_{$i}_source",
+            "product_{$i}_ingredients",
+            "product_{$i}_tested",
+            "product_{$i}_quantity",
+            "product_{$i}_weight",
             "product_{$i}_link",
+            "product_{$i}_reference",
             "product_{$i}_image",
             "product_{$i}_rating_image",
             "product_{$i}_grade",
@@ -155,10 +179,23 @@ function register_custom_fields_for_api()
             "product_{$i}_cons",
             "product_{$i}_bottom_line",
             "product_{$i}_rating",
+            "product_{$i}_rating_ingredients",
+            "product_{$i}_rating_bioavailability",
+            "product_{$i}_rating_taste",
+            "product_{$i}_rating_mixability",
+            "product_{$i}_rating_digestibility",
             "product_{$i}_effectiveness",
             "product_{$i}_safety",
-            "product_{$i}_price",
-            "product_{$i}_description",
+            "product_{$i}_flavor",
+            "product_{$i}_type",
+            "product_{$i}_what_i_love",
+            "product_{$i}_could_be_better",
+            "product_{$i}_top_gallery",
+            "product_{$i}_top_gallery_caption",
+            "product_{$i}_bottom_gallery",
+            "product_{$i}_bottom_gallery_caption",
+            "product_{$i}_offer_date",
+
             "review_{$i}_author",
             "review_{$i}_image",
             "review_{$i}_comment",
