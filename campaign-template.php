@@ -90,8 +90,12 @@ while (have_posts()) : the_post(); ?>
                 <div class="repeater-items">
                     <div class="container row">
                         <div class="repeater-left left">
+                            <!-- style="width: 100%; height: 100%; aspect-ratio: 1; overflow: hidden;" -->
                             <?php if (!empty(get_post_meta(get_the_ID(), "product_{$i}_image", true))) : ?>
-                                <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                <div class="img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                </div>
+                                <!-- style="object-fit: cover; width: 100%; height: 100%;" -->
                             <?php endif; ?>
                         </div>
                         <div class="repeater-right right">
@@ -124,7 +128,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_image", true))) : ?>
                             <div class="review-left left">
-                                <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                <div class="review-img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                </div>
                             </div>
                         <?php endif; ?>
                         <div class="review-right right">
@@ -137,7 +143,11 @@ while (have_posts()) : the_post(); ?>
                                 <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_author", true))) : ?>
                                     <span class="author"><?php echo get_post_meta(get_the_ID(), "review_{$c}_author", true); ?></span><br>
                                 <?php endif; ?>
-                                <span><i>Verified Customer</i></span>
+                                
+                                <?php if( !empty(get_post_meta(get_the_ID(), "review_{$c}_author_designation", true))) : ?>
+                                    <span><i><?php echo get_post_meta(get_the_ID(), "review_{$c}_author_designation", true); ?></i></span>
+                                <?php endif; ?>
+                                
                             </p>
                         </div>
                     </div>
@@ -163,7 +173,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <div class="repeater-left left">
                             <?php if (!empty(get_post_meta(get_the_ID(), "product_{$i}_image", true))) : ?>
-                                <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                <div class="img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                </div>
                             <?php endif; ?>
                         </div>
                         <div class="repeater-right right">
@@ -197,7 +209,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_image", true))) : ?>
                             <div class="review-left left">
-                                <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                <div class="review-img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                </div>
                             </div>
                         <?php endif; ?>
                         <div class="review-right right">
@@ -210,7 +224,10 @@ while (have_posts()) : the_post(); ?>
                                 <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_author", true))) : ?>
                                     <span class="author"><?php echo get_post_meta(get_the_ID(), "review_{$c}_author", true); ?></span><br>
                                 <?php endif; ?>
-                                <span><i>Verified Customer</i></span>
+                                
+                                <?php if( !empty(get_post_meta(get_the_ID(), "review_{$c}_author_designation", true))) : ?>
+                                    <span><i><?php echo get_post_meta(get_the_ID(), "review_{$c}_author_designation", true); ?></i></span>
+                                <?php endif; ?>
                             </p>
                         </div>
                     </div>
@@ -235,7 +252,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <div class="repeater-left left">
                             <?php if (!empty(get_post_meta(get_the_ID(), "product_{$i}_image", true))) : ?>
-                                <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                <div class="img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                </div>
                             <?php endif; ?>
                         </div>
                         <div class="repeater-right right">
@@ -269,7 +288,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_image", true))) : ?>
                             <div class="review-left left">
-                                <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                <div class="review-img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                </div>
                             </div>
                         <?php endif; ?>
                         <div class="review-right right">
@@ -282,7 +303,10 @@ while (have_posts()) : the_post(); ?>
                                 <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_author", true))) : ?>
                                     <span class="author"><?php echo get_post_meta(get_the_ID(), "review_{$c}_author", true); ?></span><br>
                                 <?php endif; ?>
-                                <span><i>Verified Customer</i></span>
+                                
+                                <?php if( !empty(get_post_meta(get_the_ID(), "review_{$c}_author_designation", true))) : ?>
+                                    <span><i><?php echo get_post_meta(get_the_ID(), "review_{$c}_author_designation", true); ?></i></span>
+                                <?php endif; ?>
                             </p>
                         </div>
                     </div>
@@ -306,7 +330,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <div class="repeater-left left">
                             <?php if (!empty(get_post_meta(get_the_ID(), "product_{$i}_image", true))) : ?>
-                                <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                <div class="img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                </div>
                             <?php endif; ?>
                         </div>
                         <div class="repeater-right right">
@@ -340,7 +366,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_image", true))) : ?>
                             <div class="review-left left">
-                                <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                <div class="review-img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                </div>
                             </div>
                         <?php endif; ?>
                         <div class="review-right right">
@@ -353,7 +381,10 @@ while (have_posts()) : the_post(); ?>
                                 <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_author", true))) : ?>
                                     <span class="author"><?php echo get_post_meta(get_the_ID(), "review_{$c}_author", true); ?></span><br>
                                 <?php endif; ?>
-                                <span><i>Verified Customer</i></span>
+                                
+                                <?php if( !empty(get_post_meta(get_the_ID(), "review_{$c}_author_designation", true))) : ?>
+                                    <span><i><?php echo get_post_meta(get_the_ID(), "review_{$c}_author_designation", true); ?></i></span>
+                                <?php endif; ?>
                             </p>
                         </div>
                     </div>
@@ -411,7 +442,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_image", true))) : ?>
                             <div class="review-left left">
-                                <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                <div class="review-img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                </div>
                             </div>
                         <?php endif; ?>
                         <div class="review-right right">
@@ -424,7 +457,10 @@ while (have_posts()) : the_post(); ?>
                                 <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_author", true))) : ?>
                                     <span class="author"><?php echo get_post_meta(get_the_ID(), "review_{$c}_author", true); ?></span><br>
                                 <?php endif; ?>
-                                <span><i>Verified Customer</i></span>
+                                
+                                <?php if( !empty(get_post_meta(get_the_ID(), "review_{$c}_author_designation", true))) : ?>
+                                    <span><i><?php echo get_post_meta(get_the_ID(), "review_{$c}_author_designation", true); ?></i></span>
+                                <?php endif; ?>
                             </p>
                         </div>
                     </div>
@@ -448,7 +484,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <div class="repeater-left left">
                             <?php if (!empty(get_post_meta(get_the_ID(), "product_{$i}_image", true))) : ?>
-                                <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                <div class="img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                </div>
                             <?php endif; ?>
                         </div>
                         <div class="repeater-right right">
@@ -482,7 +520,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_image", true))) : ?>
                             <div class="review-left left">
-                                <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                <div class="review-img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                </div>
                             </div>
                         <?php endif; ?>
                         <div class="review-right right">
@@ -495,7 +535,10 @@ while (have_posts()) : the_post(); ?>
                                 <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_author", true))) : ?>
                                     <span class="author"><?php echo get_post_meta(get_the_ID(), "review_{$c}_author", true); ?></span><br>
                                 <?php endif; ?>
-                                <span><i>Verified Customer</i></span>
+                                
+                                <?php if( !empty(get_post_meta(get_the_ID(), "review_{$c}_author_designation", true))) : ?>
+                                    <span><i><?php echo get_post_meta(get_the_ID(), "review_{$c}_author_designation", true); ?></i></span>
+                                <?php endif; ?>
                             </p>
                         </div>
                     </div>
@@ -519,7 +562,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <div class="repeater-left left">
                             <?php if (!empty(get_post_meta(get_the_ID(), "product_{$i}_image", true))) : ?>
-                                <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                <div class="img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                </div>
                             <?php endif; ?>
                         </div>
                         <div class="repeater-right right">
@@ -553,7 +598,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_image", true))) : ?>
                             <div class="review-left left">
-                                <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                <div class="review-img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                </div>
                             </div>
                         <?php endif; ?>
                         <div class="review-right right">
@@ -566,7 +613,10 @@ while (have_posts()) : the_post(); ?>
                                 <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_author", true))) : ?>
                                     <span class="author"><?php echo get_post_meta(get_the_ID(), "review_{$c}_author", true); ?></span><br>
                                 <?php endif; ?>
-                                <span><i>Verified Customer</i></span>
+                                
+                                <?php if( !empty(get_post_meta(get_the_ID(), "review_{$c}_author_designation", true))) : ?>
+                                    <span><i><?php echo get_post_meta(get_the_ID(), "review_{$c}_author_designation", true); ?></i></span>
+                                <?php endif; ?>
                             </p>
                         </div>
                     </div>
@@ -591,7 +641,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <div class="repeater-left left">
                             <?php if (!empty(get_post_meta(get_the_ID(), "product_{$i}_image", true))) : ?>
-                                <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                <div class="img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                </div>
                             <?php endif; ?>
                         </div>
                         <div class="repeater-right right">
@@ -625,7 +677,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_image", true))) : ?>
                             <div class="review-left left">
-                                <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                <div class="review-img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                </div>
                             </div>
                         <?php endif; ?>
                         <div class="review-right right">
@@ -638,7 +692,10 @@ while (have_posts()) : the_post(); ?>
                                 <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_author", true))) : ?>
                                     <span class="author"><?php echo get_post_meta(get_the_ID(), "review_{$c}_author", true); ?></span><br>
                                 <?php endif; ?>
-                                <span><i>Verified Customer</i></span>
+                                
+                                <?php if( !empty(get_post_meta(get_the_ID(), "review_{$c}_author_designation", true))) : ?>
+                                    <span><i><?php echo get_post_meta(get_the_ID(), "review_{$c}_author_designation", true); ?></i></span>
+                                <?php endif; ?>
                             </p>
                         </div>
                     </div>
@@ -664,7 +721,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <div class="repeater-left left">
                             <?php if (!empty(get_post_meta(get_the_ID(), "product_{$i}_image", true))) : ?>
-                                <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                <div class="img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                </div>
                             <?php endif; ?>
                         </div>
                         <div class="repeater-right right">
@@ -698,7 +757,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_image", true))) : ?>
                             <div class="review-left left">
-                                <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                <div class="review-img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                </div>
                             </div>
                         <?php endif; ?>
                         <div class="review-right right">
@@ -711,7 +772,10 @@ while (have_posts()) : the_post(); ?>
                                 <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_author", true))) : ?>
                                     <span class="author"><?php echo get_post_meta(get_the_ID(), "review_{$c}_author", true); ?></span><br>
                                 <?php endif; ?>
-                                <span><i>Verified Customer</i></span>
+                                
+                                <?php if( !empty(get_post_meta(get_the_ID(), "review_{$c}_author_designation", true))) : ?>
+                                    <span><i><?php echo get_post_meta(get_the_ID(), "review_{$c}_author_designation", true); ?></i></span>
+                                <?php endif; ?>
                             </p>
                         </div>
                     </div>
@@ -737,7 +801,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <div class="repeater-left left">
                             <?php if (!empty(get_post_meta(get_the_ID(), "product_{$i}_image", true))) : ?>
-                                <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                <div class="img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                </div>
                             <?php endif; ?>
                         </div>
                         <div class="repeater-right right">
@@ -771,7 +837,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_image", true))) : ?>
                             <div class="review-left left">
-                                <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                <div class="review-img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "review_{$c}_image", true); ?>" alt="image">
+                                </div>
                             </div>
                         <?php endif; ?>
                         <div class="review-right right">
@@ -784,7 +852,10 @@ while (have_posts()) : the_post(); ?>
                                 <?php if (!empty(get_post_meta(get_the_ID(), "review_{$c}_author", true))) : ?>
                                     <span class="author"><?php echo get_post_meta(get_the_ID(), "review_{$c}_author", true); ?></span><br>
                                 <?php endif; ?>
-                                <span><i>Verified Customer</i></span>
+                                
+                                <?php if( !empty(get_post_meta(get_the_ID(), "review_{$c}_author_designation", true))) : ?>
+                                    <span><i><?php echo get_post_meta(get_the_ID(), "review_{$c}_author_designation", true); ?></i></span>
+                                <?php endif; ?>
                             </p>
                         </div>
                     </div>
@@ -801,6 +872,11 @@ while (have_posts()) : the_post(); ?>
         <div class="template-footer">
             <div class="footer-content">
                 <div class="footer-container row">
+                    <?php if (!empty(get_post_meta(get_the_ID(), "footer_image", true))) : ?>
+                        <div class="footer-top image">
+                            <img src="<?php echo get_post_meta(get_the_ID(), "footer_image", true); ?>" alt="image">
+                        </div>
+                    <?php endif; ?>
                     <div class="footer-left left">
                         <?php if (!empty(get_post_meta(get_the_ID(), "footer_text", true))) : ?>
                             <p class="footer-text">

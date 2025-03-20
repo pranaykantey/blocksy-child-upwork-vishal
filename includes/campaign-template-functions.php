@@ -189,6 +189,7 @@ function product_campaign_review_fields($post)
         echo "<h4>Review $i</h4>";
         field_image($post, "review_{$i}_image", 'Image');
         field_text($post, "review_{$i}_author", 'Author');
+        field_text($post, "review_{$i}_author_designation", 'Author Designation', 'Verified Customer'); 
         field_editor($post, "review_{$i}_comment", 'Comment');
     }
 }
@@ -373,10 +374,10 @@ function save_campaign_product_meta($post_id)
         foreach ($product_fields as $field) {
             $key = "product_{$i}_{$field}";
             if (isset($_POST[$key])) {
-                $value = in_array($field, array('pros', 'cons', 'bottom_line', 'description', 'link'))
-                    ? wp_kses_post($_POST[$key])
-                    : sanitize_text_field($_POST[$key]);
-
+                // $value = in_array($field, array('pros', 'cons', 'bottom_line', 'description', 'link'))
+                //     ? wp_kses_post($_POST[$key])
+                //     : sanitize_text_field($_POST[$key]);
+                $value = $_POST[$key];
                 // Special handling for the link field
                 if ($field === 'link') {
                     $value = esc_url_raw($_POST[$key]);
@@ -400,6 +401,7 @@ function save_campaign_product_meta($post_id)
             'author',
             'image',
             'comment',
+            'author_designation',
         );
 
         foreach ($product_fields as $field) {

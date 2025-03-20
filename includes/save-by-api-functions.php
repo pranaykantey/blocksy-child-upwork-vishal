@@ -156,7 +156,7 @@ function register_custom_fields_for_api()
     $all_fields = array_merge($common_fields, $product_review_fields, $product_comparison_fields, $product_campaign_fields, $product_simple_with_sidebar, $global_color_fields, $expert_review_template_fields);
 
     // Add product-specific fields
-    for ($i = 1; $i <= 15; $i++) {
+    for ($i = 1; $i <= 25; $i++) {
         $product_fields = array(
             "product_{$i}_name",
             "product_{$i}_price",
@@ -199,6 +199,7 @@ function register_custom_fields_for_api()
             "review_{$i}_author",
             "review_{$i}_image",
             "review_{$i}_comment",
+            "review_{$i}_author_designation",
         );
 
         $custom_fieldss = get_post_meta($post->ID, 'custom_product_fields', true) ?: array('Effectiveness', 'Safety', 'Price');
