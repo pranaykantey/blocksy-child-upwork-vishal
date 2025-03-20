@@ -83,7 +83,7 @@ while (have_posts()) : the_post(); ?>
         // var_dump(get_the_ID());
         $num_products = get_post_meta(get_the_ID(), 'num_products', true) ? get_post_meta(get_the_ID(), 'num_products', true) : 5;
         $i = 1;
-        $it = 2;
+        $it = (2 < $num_products) ? 2 : $num_products;
         if ($i <= $num_products) :
             while ($i <= $it) :
         ?>
@@ -165,7 +165,7 @@ while (have_posts()) : the_post(); ?>
         // var_dump(get_the_ID());
         $num_products = get_post_meta(get_the_ID(), 'num_products', true) ? get_post_meta(get_the_ID(), 'num_products', true) : 5;
         $i = 3;
-        $it = 3;
+        $it = (3 < $num_products) ? 3 : $num_products;
         if ($i <= $num_products) :
             while ($i <= $it) :
         ?>
@@ -244,7 +244,7 @@ while (have_posts()) : the_post(); ?>
         // var_dump(get_the_ID());
         $num_products = get_post_meta(get_the_ID(), 'num_products', true) ? get_post_meta(get_the_ID(), 'num_products', true) : 5;
         $i = 4;
-        $it = 5;
+        $it = (5 < $num_products) ? 5 : $num_products;
         if ($i <= $num_products) :
             while ($i <= $it) :
         ?>
@@ -322,7 +322,7 @@ while (have_posts()) : the_post(); ?>
         // var_dump(get_the_ID());
         $num_products = get_post_meta(get_the_ID(), 'num_products', true) ? get_post_meta(get_the_ID(), 'num_products', true) : 5;
         $i = 6;
-        $it = 7;
+        $it = (7 < $num_products) ? 7 : $num_products;
         if ($i <= $num_products) :
             while ($i <= $it) :
         ?>
@@ -400,7 +400,7 @@ while (have_posts()) : the_post(); ?>
         // var_dump(get_the_ID());
         $num_products = get_post_meta(get_the_ID(), 'num_products', true) ? get_post_meta(get_the_ID(), 'num_products', true) : 5;
         $i = 8;
-        $it = 8;
+        $it = (8 < $num_products) ? 8 : $num_products;
         if ($i <= $num_products) :
             while ($i <= $it) :
         ?>
@@ -408,7 +408,9 @@ while (have_posts()) : the_post(); ?>
                     <div class="container row">
                         <div class="repeater-left left">
                             <?php if (!empty(get_post_meta(get_the_ID(), "product_{$i}_image", true))) : ?>
-                                <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                <div class="img-container">
+                                    <img src="<?php echo get_post_meta(get_the_ID(), "product_{$i}_image", true); ?>" alt="image">
+                                </div>
                             <?php endif; ?>
                         </div>
                         <div class="repeater-right right">
@@ -476,7 +478,7 @@ while (have_posts()) : the_post(); ?>
         // var_dump(get_the_ID());
         $num_products = get_post_meta(get_the_ID(), 'num_products', true) ? get_post_meta(get_the_ID(), 'num_products', true) : 5;
         $i = 9;
-        $it = 10;
+        $it = (10 < $num_products) ? 10 : $num_products;
         if ($i <= $num_products) :
             while ($i <= $it) :
         ?>
@@ -554,7 +556,7 @@ while (have_posts()) : the_post(); ?>
         // var_dump(get_the_ID());
         $num_products = get_post_meta(get_the_ID(), 'num_products', true) ? get_post_meta(get_the_ID(), 'num_products', true) : 5;
         $i = 11;
-        $it = 12;
+        $it = (12 < $num_products) ? 12 : $num_products;
         if ($i <= $num_products) :
             while ($i <= $it) :
         ?>
@@ -633,7 +635,7 @@ while (have_posts()) : the_post(); ?>
         // var_dump(get_the_ID());
         $num_products = get_post_meta(get_the_ID(), 'num_products', true) ? get_post_meta(get_the_ID(), 'num_products', true) : 5;
         $i = 13;
-        $it = 13;
+        $it = (13 < $num_products) ? 13 : $num_products;
         if ($i <= $num_products) :
             while ($i <= $it) :
         ?>
@@ -713,7 +715,7 @@ while (have_posts()) : the_post(); ?>
         // var_dump(get_the_ID());
         $num_products = get_post_meta(get_the_ID(), 'num_products', true) ? get_post_meta(get_the_ID(), 'num_products', true) : 5;
         $i = 14;
-        $it = 15;
+        $it = (15 < $num_products) ? 15 : $num_products;
         if ($i <= $num_products) :
             while ($i <= $it) :
         ?>
@@ -793,7 +795,7 @@ while (have_posts()) : the_post(); ?>
         // var_dump(get_the_ID());
         $num_products = get_post_meta(get_the_ID(), 'num_products', true) ? get_post_meta(get_the_ID(), 'num_products', true) : 5;
         $i = 15;
-        $it = 16;
+        $it = (16 < $num_products) ? 16 : $num_products;
         if ($i <= $num_products) :
             while ($i <= $it) :
         ?>
